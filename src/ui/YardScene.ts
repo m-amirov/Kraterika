@@ -26,8 +26,17 @@ export class YardScene extends Phaser.Scene {
   create():void {
     this.active=true;
     this.input.on('pointerdown',(pointer:Phaser.Input.Pointer)=>{
-      const point=this.pick(pointer.x,pointer.y);
-      this.lastPointer={x:pointer.x,y:pointer.y,picked:point};
+      // Phaser's cached pointer.x can be wrong when the canvas lives inside a
+      // horizontally scrolled mobile viewport. Derive coordinates from the
+      // actual event client position and CURRENT canvas DOM rectangle.
+      const e=pointer.event as MouseEvent | TouchEvent;
+      const client=('changedTouches' in e && e.changedTouches.length>0)?e.changedTouches[0]:e;
+      const rect=this.game.canvas.getBoundingClientRect();
+      if(rect.width<=0||rect.height<=0)return;
+      const x=(client.clientX-rect.left)*this.scale.width/rect.width;
+      const y=(client.clientY-rect.top)*this.scale.height/rect.height;
+      const point=this.pick(x,y);
+      this.lastPointer={x,y,picked:point};
       if(point)this.onCell?.(point);
     });
     this.scale.on('resize',()=>this.paint());
