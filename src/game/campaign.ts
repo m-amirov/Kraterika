@@ -228,4 +228,3 @@ export function runSolutionTrace(id:ContractId):{attempt:MissionAttempt;medal:1|
   return {attempt,medal:attempt.medal as 1|2|3};
 }
 export const careerScore=(world:PersistentWorld):number=>100*Object.values(world.bestMedals).reduce<number>((sum,v)=>sum+(v??0),0);
-

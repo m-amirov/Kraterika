@@ -50,4 +50,3 @@ export class ColonyScene extends Phaser.Scene{
     }else this.text('КОЛОНИЯ «ПЕРВЫЕ ОГНИ»',w*.5,27,17,'#e9f7ff',true);
   }
 }
-

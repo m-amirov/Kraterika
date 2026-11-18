@@ -72,4 +72,3 @@ export const CONTRACTS:ContractConfig[]=[
     solution:[place('route',p(6,4)),{type:'priority',robotId:'R-01'},...steps(6)]
   }
 ];
-
