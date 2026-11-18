@@ -1,82 +1,156 @@
 <!doctype html>
 <html lang="ru">
 <head>
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
- <meta name="theme-color" content="#101a30">
- <meta name="description" content="Кратерика — первая играбельная логистическая головоломка на Луне.">
- <title>Кратерика — G2 First Playable</title>
- <style>
- :root{font:16px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark}
- *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#2c3a5e 0%,#101a30 56%,#10192b 100%);color:#eaf4ff;min-height:100dvh}
- main{width:min(1190px,100%);margin:auto;padding:clamp(10px,2vw,24px)}
- .mast{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
- .logo{font-weight:850;letter-spacing:.07em;font-size:clamp(26px,4vw,40px);margin:0}.tag{font-size:11px;padding:7px 11px;border:1px solid #637993;border-radius:16px;color:#c1d6e5;text-transform:uppercase}
- .stage{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:14px}
- .panel,.board,.controls{background:linear-gradient(140deg,#2c3a55dd,#20334cdd);border:1px solid #59718a;border-radius:15px;box-shadow:0 13px 35px #09111f55}
- .board{padding:8px;min-width:0}.panel{padding:16px}.controls{padding:13px;margin-top:12px}
- #game{height:min(68dvh,625px);min-height:330px;width:100%;border-radius:10px;overflow:hidden;background:#0c1b2d;touch-action:none}
- button{font:inherit;cursor:pointer;min-height:44px;min-width:44px;color:#eff9ff;background:#344b65;border:1px solid #6c8da1;border-radius:11px;padding:9px 13px;transition:background .14s}
- button:hover:not(:disabled){background:#496984}button:focus-visible{outline:3px solid #7ee0e8;outline-offset:2px}button:disabled{opacity:.42;cursor:not-allowed}
- button.primary{background:#248692;border-color:#6bd7db;color:#fff;font-weight:760}
- button[aria-pressed="true"]{background:#396d78;border-color:#7ce5dc}
- .row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
- .levels{display:flex;gap:8px;margin-top:12px}.levels button{flex:1;font-size:13px;padding:8px}
- h2{font-size:clamp(17px,2.4vw,23px);margin:0 0 8px}h3{font-size:14px;color:#b6ccd9;margin:16px 0 6px}
- p{margin:8px 0} .small{font-size:13px;color:#b8cddd}.stats{margin-top:14px;display:grid;gap:8px}
- .stat{padding:9px;background:#152840;border:1px solid #405e7c;border-radius:10px}
- .stat strong{font-weight:700;color:#d7f7ee}
- .actions button{flex:1;white-space:nowrap}
- #notice{padding:11px;border-left:3px solid #7acbd3;background:#152b3e;border-radius:8px;min-height:48px}
- .hint{background:#203f51;border:1px solid #44687b;border-radius:10px;padding:10px;color:#d3eaf5}
- #end-note{font-weight:700;color:#b9f4d2;min-height:23px}
- .legend{font-size:13px;color:#aec5d3}
- @media(max-width:790px){.stage{grid-template-columns:1fr}.panel{order:-1}.panel .stats{grid-template-columns:repeat(2,minmax(0,1fr))}#game{height:min(58dvh,570px);min-height:300px}}
- @media(max-width:460px){.tag{font-size:10px}.panel{padding:12px}.panel .stats{grid-template-columns:1fr 1fr}#game{height:47dvh;min-height:300px}.actions button{font-size:14px;padding:8px 9px}}
- </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111b31">
+  <meta name="description" content="Кратерика — инженерная лунная колония и логистика роботов.">
+  <title>Кратерика — живая инженерная площадка · G2-R</title>
+  <style>
+  :root{font:15px/1.42 system-ui,-apple-system,"Segoe UI",sans-serif;color:#e9f3fc;color-scheme:dark}
+  *,*:before,*:after{box-sizing:border-box}
+  body{margin:0;min-height:100dvh;background:radial-gradient(ellipse at 28% 0,#34415f 0%,#101b33 48%,#0e182b 100%);}
+  button{font:inherit;color:#e9f3fc;cursor:pointer;background:linear-gradient(#40536d,#273c58);border:1px solid #7898b5;border-radius:10px;padding:9px 12px;min-height:45px;min-width:44px;box-shadow:inset 0 1px #ffffff22}
+  button:disabled{opacity:.38;cursor:not-allowed}button:hover:not(:disabled){filter:brightness(1.13)}
+  button:focus-visible{outline:3px solid #70ecf0;outline-offset:2px}
+  button[aria-pressed=true]{background:linear-gradient(#23a0b5,#276276);border-color:#8cf1ef;color:#fff;box-shadow:0 0 13px #27bace44}
+  .primary{background:linear-gradient(#3bc0be,#25859b);border-color:#94f1eb;font-weight:800}
+  .card{background:linear-gradient(140deg,#2e405ecf,#21354de8);border:1px solid #7892ae99;border-radius:15px;box-shadow:0 14px 35px #050b165e,inset 0 1px 0 #c7ebff1b}
+  .shell{max-width:1700px;margin:auto;padding:clamp(10px,1.5vw,22px)}
+  .mast{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+  .logo{font-size:clamp(29px,3.2vw,44px);font-weight:850;letter-spacing:.035em;font-style:italic;margin:0;text-shadow:0 3px 10px #030a15bb}
+  .mode{display:block;font-style:normal;letter-spacing:.25em;font-weight:750;font-size:10px;color:#b8d4e7}
+  .badges{display:flex;flex-wrap:wrap;gap:9px}
+  .resource{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid #7598b0;border-radius:22px;background:#293c59cc;font-weight:760}
+  .resource strong{font-size:18px;color:#e9fcff}
+  .resource .resource-icon{font-size:19px;color:#f4d7a3}
+  .workspace{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:12px;align-items:start}
+  .scene-wrap{min-width:0}
+  .viewport{overflow-x:auto;overscroll-behavior-x:contain;border-radius:13px;background:#17253c;scrollbar-color:#76a5bb #23334c}
+  .scene-panel{padding:7px;overflow:hidden}
+  #game{width:100%;min-width:790px;height:620px;position:relative;touch-action:pan-x}
+  .scene-caption{display:flex;justify-content:space-between;gap:14px;padding:9px 10px 3px;font-size:12px;color:#b4d1df}
+  .sidebar{padding:16px;display:grid;gap:12px}
+  h2{font-size:19px;margin:0}h3{font-size:15px;margin:0}p{margin:6px 0}
+  .panel-title{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#bdd8eb}
+  .objective{background:#1c3049;border:1px solid #4a718f;border-radius:12px;padding:12px}
+  .objective .line{display:flex;justify-content:space-between;gap:8px;margin:10px 0;background:#2d405a;border-radius:10px;padding:8px}
+  .line strong{color:#a9f0e5}
+  .progress{background:#15243c;border:1px solid #6d99b5;border-radius:20px;overflow:hidden;height:12px;margin-top:9px}
+  #yard-progress{font-weight:800;font-size:19px}
+  .modules{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .module{background:#192f42;border:1px solid #506e83;padding:9px;border-radius:10px}
+  .module small{display:block;color:#b0cbdc;font-size:11px}.module b{font-size:13px}
+  .tabs,.tools,.actions{display:flex;gap:7px;flex-wrap:wrap}
+  .tabs button{flex:1;padding:7px 5px;font-size:13px}
+  .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tools button{font-size:12px;padding:7px 3px;min-height:64px;line-height:1.25}
+  .tools button em{display:block;font-style:normal;font-size:21px;margin-bottom:3px}
+  .toolhint{font-size:12px;color:#b6cfdd;margin:0}
+  #yard-robot-panel{white-space:pre-line;background:#1d3448;border:1px solid #4a7790;padding:12px;border-radius:9px;font-size:13px;line-height:1.8}
+  .foot{padding:12px 15px;margin-top:12px}
+  .actions{align-items:center;justify-content:space-between}
+  .actions button{flex:1}
+  #yard-transfer{background:linear-gradient(#9b7041,#675038);border-color:#e1aa6b}
+  #yard-notice{background:#1b3044;border-left:4px solid #5ed1dc;border-radius:8px;padding:11px 14px;min-height:44px;max-width:100%;margin-top:12px}
+  #yard-next{background:#254739;border:1px solid #68b995;color:#c9f8d5;padding:9px;border-radius:8px;font-size:13px}
+  .minor{font-size:12px;color:#b5cada}
+  .legal{font-size:12px;color:#9eb6c6;margin-top:11px}
+  @media(max-width:1100px){.workspace{grid-template-columns:minmax(0,1fr) 275px}.sidebar{padding:12px}#game{height:585px}}
+  @media(max-width:850px){
+   .workspace{grid-template-columns:1fr}.sidebar{order:-1;grid-template-columns:1fr 1fr}
+   .sidebar>.full{grid-column:1 / -1}.sidebar h2{font-size:17px}
+   #game{height:535px;min-width:790px}
+   .scene-caption{flex-direction:column;gap:3px}
+  }
+  @media(max-width:540px){
+   .shell{padding:9px}.resource{padding:6px 10px;font-size:12px}.resource strong{font-size:15px}
+   .sidebar{grid-template-columns:1fr;gap:9px}.sidebar>.full{grid-column:auto}
+   .sidebar{padding:11px}.objective{padding:10px}
+   .modules{grid-template-columns:1fr 1fr}
+   #game{height:530px;min-width:790px}
+   .actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+   .actions button{font-size:13px;padding:8px 6px}
+   .logo{font-size:31px}
+  }
+  </style>
 </head>
 <body>
-<main>
- <header class="mast">
-  <h1 class="logo">КРАТЕРИКА</h1><span class="tag">G2 · играбельная техническая версия</span>
- </header>
- <div class="stage">
-  <div class="board">
-   <div id="game" aria-label="Игровое поле: нажмите на доступные клетки, чтобы построить путь, или на стрелку для переключения направления"></div>
+<main class="shell">
+  <header class="mast">
+    <h1 class="logo">Кратерика <span class="mode">LUNAR ENGINEERING · G2-R</span></h1>
+    <div class="badges">
+      <span class="resource"><span class="resource-icon">▣</span>Материалы <strong id="yard-budget">20</strong></span>
+      <span class="resource"><span class="resource-icon">✦</span>Смена <strong id="yard-phase">ПОДГОТОВКА</strong></span>
+      <span class="resource"><span class="resource-icon">✧</span>Награды <strong id="yard-reward">0</strong></span>
+    </div>
+  </header>
+  <div class="workspace">
+    <div class="scene-wrap card scene-panel">
+      <div id="viewport" class="viewport" aria-label="Лунная площадка. На мобильном экране прокрутите поле горизонтально для просмотра всех сооружений">
+        <div id="game" aria-label="Интерактивная площадка: размещайте оборудование выбранным инструментом и управляйте стрелкой."></div>
+      </div>
+      <div class="scene-caption">
+        <span>Единая площадка · два робота · настоящая инженерная логистика</span>
+        <span>На телефоне карта прокручивается горизонтально</span>
+      </div>
+    </div>
+    <aside class="sidebar card">
+      <div class="full">
+        <div class="panel-title">Контракт · Станция «Первые огни»</div>
+        <h2>Запустить лунный узел</h2>
+        <p class="minor">Постройте оранжерею. Доставьте воду и детали, организуйте зарядку и передачу через кран.</p>
+      </div>
+      <section class="objective full">
+        <div class="panel-title">Текущие поставки</div>
+        <div class="line"><span>◈ Вода → оранжерея</span><strong id="yard-water">Требуется</strong></div>
+        <div class="line"><span>▣ Детали → мастерская</span><strong id="yard-parts">Требуются</strong></div>
+        <div class="minor">Доставлено <strong id="yard-progress">0/2</strong> · <span id="yard-tick">Такт 0</span></div>
+        <div class="progress" aria-hidden="true"><div style="background:#69e5ba;width:100%;height:100%;opacity:.35"></div></div>
+      </section>
+      <section class="modules full">
+        <div class="module"><small>Оранжерея</small><b id="yard-greenhouse">Нужен купол</b></div>
+        <div class="module"><small>Мастерская</small><b id="yard-workshop">Ожидает детали</b></div>
+      </section>
+      <section class="full">
+        <div class="tabs">
+          <button type="button" data-tab="build" aria-pressed="true">Строить</button>
+          <button type="button" data-tab="routes" aria-pressed="false">Маршруты</button>
+          <button type="button" data-tab="robots" aria-pressed="false">Роботы</button>
+        </div>
+      </section>
+      <section id="yard-tool-list" class="full">
+        <div class="panel-title" style="margin-bottom:7px">Инструменты — выбор и касание карты</div>
+        <div class="tools">
+          <button data-tool="route" type="button" aria-pressed="true"><em>⌁</em>Путь · 1</button>
+          <button data-tool="switch" type="button" aria-pressed="false"><em>↱</em>Стрелка</button>
+          <button data-tool="charger" type="button" aria-pressed="false"><em>ϟ</em>Зарядка · 3</button>
+          <button data-tool="arm" type="button" aria-pressed="false"><em>⚒</em>Кран · 4</button>
+          <button data-tool="greenhouse" type="button" aria-pressed="false"><em>✿</em>Купол · 6</button>
+          <button data-tool="erase" type="button" aria-pressed="false"><em>×</em>Удалить</button>
+        </div>
+      </section>
+      <div id="yard-robot-panel" class="full" hidden></div>
+      <div class="full">
+        <div class="panel-title">Инфраструктура</div>
+        <p class="toolhint" id="yard-built">Сеть 0 • зарядка — • кран —</p>
+      </div>
+      <div class="full" id="yard-next" role="status">После запуска оранжереи появится новый заказ</div>
+    </aside>
   </div>
-  <aside class="panel">
-   <div class="row"><strong id="phase">Подготовка</strong><span class="small" id="tick">Такт: 0</span></div>
-   <h2 id="mission-title">Загрузка миссии…</h2>
-   <p id="mission-description"></p>
-   <div class="levels">
-    <button type="button" id="select-lv01">01 · Маршрут</button>
-    <button type="button" id="select-lv02" disabled>02 · Развилка</button>
-   </div>
-   <div class="stats">
-    <div class="stat"><span class="small">Цель</span><div id="progress">Доставлено 0 / 1</div></div>
-    <div class="stat"><span class="small">Материалы колонии</span><div><strong id="materials">0</strong> ед.</div></div>
-    <div class="stat"><span class="small">Монтаж</span><div id="budget">Свободные секции: 2</div></div>
-    <div class="stat"><span class="small">Транспорт</span><div id="robots">R-01: 12 ⚡</div></div>
-   </div>
-   <h3>Как пройти</h3>
-   <p class="hint" id="mission-guide"></p>
-   <h3>Грузы</h3><p class="small" id="cargo-types"></p>
-  </aside>
- </div>
- <section class="controls">
-  <div class="row actions">
-   <button class="primary" type="button" id="play">▶ Запустить</button>
-   <button type="button" id="pause" disabled>Ⅱ Пауза</button>
-   <button type="button" id="step">↦ Шаг</button>
-   <button type="button" id="restart">↺ Повтор</button>
-   <button class="primary" type="button" id="next" disabled>Следующая →</button>
-  </div>
-  <p id="notice" role="status" aria-live="polite">Подготовка операции…</p>
-  <div id="end-note" role="status" aria-live="polite"></div>
-  <p class="legend">Голубой контур «+» — место монтажа. Нажмите ещё раз, чтобы убрать секцию. Круговая стрелка — переключатель. Пробел — пауза, Shift+S — один шаг, R — повтор.</p>
-  <p class="small">Это G2 greybox: настоящая игровая логика, но не финальная графика. Утверждённый Art Pack 0.1 будет внедрён отдельно. Реклама и платёжные SDK не подключены.</p>
- </section>
+  <footer class="foot card">
+    <div class="actions">
+      <button id="yard-restart" type="button">↻ Заново</button>
+      <button id="yard-pause" type="button">Ⅱ Пауза</button>
+      <button class="primary" id="yard-play" type="button">▶ Запустить</button>
+      <button id="yard-step" type="button">⇥ Шаг</button>
+      <button id="yard-transfer" type="button">⚒ Передать детали</button>
+    </div>
+    <p id="yard-notice" role="status" aria-live="polite">Подготовка станции…</p>
+    <p class="minor">Подсказка: сначала поставьте купол, достройте разрыв ветки, добавьте зарядку и кран. Сделайте два шага, переключите стрелку, продолжите до подхода робота к крану и нажмите «Передать детали» на паузе. Можно менять схему и перезапускать без потери награды.</p>
+    <p class="legal">G2-R инженерный прототип: действующие логика, здания и устройства, но графика пока процедурная. Утверждённый Art Pack 0.1 будет создан отдельно. Платформенные SDK и публикация не подключены.</p>
+  </footer>
 </main>
-<script type="module" src="/src/main.ts"></script>
+<script type="module" src="/src/yardMain.ts"></script>
 </body>
 </html>
