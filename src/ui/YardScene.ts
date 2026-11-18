@@ -13,6 +13,7 @@ export class YardScene extends Phaser.Scene {
   onCell:((point:Pt)=>void)|null=null;
   onFrame:((delta:number)=>void)|null=null;
   private state:Yard|null=null;
+  private lastPointer:{x:number;y:number;picked:Pt|null}|null=null;
   private tool:Tool='route';
   private active=false;
   private unit=40;
@@ -26,6 +27,7 @@ export class YardScene extends Phaser.Scene {
     this.active=true;
     this.input.on('pointerdown',(pointer:Phaser.Input.Pointer)=>{
       const point=this.pick(pointer.x,pointer.y);
+      this.lastPointer={x:pointer.x,y:pointer.y,picked:point};
       if(point)this.onCell?.(point);
     });
     this.scale.on('resize',()=>this.paint());
@@ -37,6 +39,7 @@ export class YardScene extends Phaser.Scene {
     if(this.active)this.paint();
   }
   layout(){return {unit:this.unit,originX:this.originX,originY:this.originY,skew:this.skew,rise:this.rise};}
+  lastInput(){return this.lastPointer?structuredClone(this.lastPointer):null;}
   center(point:Pt):Pt {
     return {x:this.originX+(point.x+.5+(point.y+.5)*this.skew)*this.unit,
       y:this.originY+(point.y+.5)*this.unit*this.rise};

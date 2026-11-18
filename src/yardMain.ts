@@ -125,9 +125,10 @@ const config:Phaser.Types.Core.GameConfig={
 new Phaser.Game(config);
 hud();
 (window as unknown as {kraterikaYard:{
- getState:()=>Yard;getLayout:()=>ReturnType<YardScene['layout']>;getTool:()=>Tool;
+ getState:()=>Yard;getLayout:()=>ReturnType<YardScene['layout']>;getTool:()=>Tool;getLastInput:()=>ReturnType<YardScene['lastInput']>;
 }}).kraterikaYard={
  getState:()=>structuredClone(state),
  getLayout:()=>scene.layout(),
- getTool:()=>tool
+ getTool:()=>tool,
+ getLastInput:()=>scene.lastInput()
 };

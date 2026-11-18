@@ -50,7 +50,10 @@ async function finishYard(page,mobile=false){
      await page.screenshot({path:'test-results/g2r-'+label+'-build-error-'+tool+'.png',fullPage:true});
      console.error(JSON.stringify({tool,at:{x,y},expected,budget:stepState.budget,
        notice:stepState.notice,equipment:stepState.equipment,added:stepState.added,
-       modules:stepState.modules,layout:await page.evaluate(()=>window.kraterikaYard.getLayout())}));
+       modules:stepState.modules,
+       layout:await page.evaluate(()=>window.kraterikaYard.getLayout()),
+       lastPointer:await page.evaluate(()=>window.kraterikaYard.getLastInput()),
+       canvasBox:await page.locator('#game canvas').boundingBox()}));
    }
    assert.equal(stepState.budget,expected,'Build must apply via real pointer: '+tool);
  };
