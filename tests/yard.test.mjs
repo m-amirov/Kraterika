@@ -133,3 +133,22 @@ test('G2-R: same script deterministically replays with no RNG or wall clock',()=
  assert.equal(YARD_TICK_MS,250);
  assert.equal(a.notice.includes('Новый заказ'),true);
 });
+
+test('G2-R regression: charging pauses only its own tick and rover must move on the following tick',()=>{
+ let s=initialYard();
+ s=apply(s,{type:'place',tool:'route',at:{x:6,y:4}});
+ s=apply(s,{type:'place',tool:'charger',at:SITES.charger});
+ s=apply(s,{type:'step'});s=apply(s,{type:'step'});s=apply(s,{type:'switch'});
+ for(let i=0;i<3;i++)s=apply(s,{type:'step'});
+ assert.deepEqual(s.robots[1].at,{x:5,y:4});
+ assert.equal(s.robots[1].energy,0);
+ s=apply(s,{type:'step'});
+ assert.equal(s.robots[1].status,'charging');
+ assert.equal(s.robots[1].energy,6);
+ s=apply(s,{type:'step'});
+ assert.deepEqual(s.robots[1].at,{x:6,y:4});
+ assert.equal(s.robots[1].energy,5);
+ s=apply(s,{type:'step'});
+ assert.deepEqual(s.robots[1].at,SITES.pickup);
+ assert.equal(s.robots[1].energy,4);
+});

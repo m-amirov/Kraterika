@@ -95,6 +95,7 @@ export function canTransfer(s:Yard):boolean {
 function move(s:Yard):Yard{
  const next=cloned(s),rails=new Set(next.tracks.map(ptKey));
  const intent=new Map<string,Pt>(),messages:string[]=[];
+ const chargedThisTick=new Set<string>();
  for(const rover of next.robots){
   if(rover.status==='delivered')continue;
   if(at(rover.at,SITES.greenhouse)&&rover.cargo==='water') {
@@ -108,7 +109,7 @@ function move(s:Yard):Yard{
    messages.push('Детали ждут передачи манипулятором');continue;
   }
   if(rover.energy<=1&&equipment(next,'charger')&&at(rover.at,SITES.charger)){
-   rover.energy=6;rover.status='charging';
+   rover.energy=6;rover.status='charging';chargedThisTick.add(rover.id);
    messages.push(rover.id+': заряд восстановлен');continue;
   }
   if(rover.energy<=0){rover.status='waiting';messages.push(rover.id+': нужен заряд');continue;}
@@ -139,7 +140,7 @@ function move(s:Yard):Yard{
   }
  }
  for(const rover of next.robots){
-  if(rover.status==='delivered'||rover.status==='charging')continue;
+  if(rover.status==='delivered'||chargedThisTick.has(rover.id))continue;
   const dest=intent.get(rover.id);
   if(!dest||blocked.has(rover.id)){
    rover.status='waiting';
