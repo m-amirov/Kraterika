@@ -1,0 +1,54 @@
+name: integration-preflight
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ludory-core-manifest:
+    name: Pinned Ludory Core schema (not Runtime or export)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch pinned Ludory source into disposable runner
+        shell: bash
+        run: |
+          git init "$RUNNER_TEMP/ludory"
+          git -C "$RUNNER_TEMP/ludory" remote add origin https://github.com/m-amirov/ludory.git
+          git -C "$RUNNER_TEMP/ludory" fetch --depth=1 origin 933c73b195eaf3bfffd12a31ab1cbadb27989eea
+          git -C "$RUNNER_TEMP/ludory" checkout --detach FETCH_HEAD
+      - name: Verify real Ludory Core defineGame on exact pinned source
+        run: node scripts/verify-ludory.mjs --ludory "$RUNNER_TEMP/ludory"
+
+  wfa-project-skills:
+    name: Pinned WFA project installation (disposable Windows runner)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and pin official WFA checkout
+        shell: pwsh
+        run: |
+          $source = Join-Path $env:RUNNER_TEMP 'wfa'
+          git clone --filter=blob:none https://github.com/m-amirov/workflow-for-agents.git $source
+          if ($LASTEXITCODE -ne 0) { throw 'Failed to clone WFA' }
+          git -C $source checkout 6c8d80d15155cd8ccfbd245fce9450f61b5133f3
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned WFA commit not found' }
+      - name: Install project-scoped Skills with native WFA installer
+        shell: pwsh
+        run: |
+          $source = Join-Path $env:RUNNER_TEMP 'wfa'
+          ./scripts/install-wfa.ps1 -WfaCheckout $source
+          ./scripts/install-wfa.ps1 -WfaCheckout $source -Apply
+          foreach ($name in @('game-docs','gameplay-design','gameplay-playtesting','game-content-qa','phaser-core','git-workflow')) {
+            $skill = Join-Path (Join-Path '.agents/skills' $name) 'SKILL.md'
+            if (-not (Test-Path -LiteralPath $skill -PathType Leaf)) { throw "Required Skill missing: $name" }
+          }
+          Write-Host 'WFA_EPHEMERAL_INSTALL_VERIFIED (not a user-machine Codex activation)'
