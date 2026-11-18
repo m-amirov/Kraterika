@@ -1,7 +1,7 @@
 # Kraterika — durable project checkpoint
 
 **Last design update:** 2026-11-18 (`G1_DESIGN_APPROVED`; G3 implementation checkpoint)
-**Current production gate:** **G3_ENGINEERING_VERIFIED / ART_OR_PRODUCT_GATE_PENDING**. CT-01..CT-06 pass deterministic domain, economy, save, desktop mouse and mobile touch runs locally on implementation baseline `eb9983db5d112b553be0bbefea44572f26882db0`. Production art, independent visual acceptance and human product playtest remain pending; G4–G7 are not promoted.
+**Current production gate:** **G3_ENGINEERING_VERIFIED / ART_OR_PRODUCT_GATE_PENDING**. CT-01..CT-06 pass deterministic domain, economy, save, desktop mouse and mobile touch runs locally on implementation baseline `d1e598b9deff4936ee25d8d673f5462e299ab5d2`. Production art, independent visual acceptance and human product playtest remain pending; G4–G7 are not promoted.
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
 **Approved owner decisions:** название «Кратерика», вариант B, **Cozy Lunar Engineering / Art Pack 0.1**, GDD v0.2: 30 контрактов/5 районов, persistent colony, daily, 22 achievements и один career leaderboard — approved 2026-11-18. Approval is design scope, not proof that daily/achievement/SDK/art/runtime beyond CT-01..06 exists.
@@ -48,6 +48,7 @@ All six references replay through `dispatchAttempt`; every result is gold, colli
 - Pure domain: `src/game/campaign.ts`, data-driven scenarios/traces: `src/game/campaignContracts.ts`, versioned fail-closed save: `src/game/campaignSave.ts`.
 - Product entrypoint: `index.html` + `src/campaignMain.ts` + Phaser `src/ui/ColonyScene.ts`; G2-R moved to built `g2r.html` regression entry.
 - Colony consequences: dispatch/distribution/power/workshop/greenhouse/district become operational in order; workshop produces 2 components, greenhouse 2 food; CT-06 refuses to start unless both are operational.
+- Construction lifecycle is visible in the domain, operation HUD and colony map: locked → available → built → waiting for resources → operational.
 - Local browser receipt: six gold contracts on desktop mouse and mobile 390×844 touch, reload, CT-06 replay without duplicate reward, contract-card text geometry, 0 console/page errors. Screenshots are generated under `test-results/` and uploaded by `.github/workflows/browser-smoke.yml`; remote CI link pending final push.
 
 ## Current G2-R implementation — new main scene
