@@ -17,7 +17,7 @@ function loadCampaign():Campaign{
     if(typeof value!=='object'||value===null||Array.isArray(value))return empty;
     const record=value as Record<string,unknown>;
     if(record.schemaVersion!==1||!Array.isArray(record.completed))return empty;
-    const completed=MISSIONS.filter(m=>record.completed!.includes(m.id)).map(m=>m.id);
+    const completed=MISSIONS.filter(m=>(record.completed as unknown[]).includes(m.id)).map(m=>m.id);
     return {schemaVersion:1,completed,materials:MISSIONS.filter(m=>completed.includes(m.id)).reduce((sum,m)=>sum+m.reward,0)};
   }catch{return empty;}
 }
