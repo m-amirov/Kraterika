@@ -1,3 +1,5 @@
+> **OWNER PRODUCT REVIEW 2026-11-18: REJECTED.** Source-bound unit/browser smoke for LV-01/LV-02 remains genuine engineering evidence, **not an approved game experience**. Owner reports that design is a clone of earlier «Небесная почта» and expects an integrated rich lunar logistics + colony screen. See [revised direction](design/GAMEPLAY_RESET_2026-11-18.md). Do not use this G2 screen as a mass Art Production target. New G2-R NOT_RUN.
+
 # G2 — First Playable: exact play contract
 
 **Status: FIRST_PLAYABLE_VERIFIED** for LV-01/LV-02 at code SHA `59ce030c690b59520c6437049c01c0546f02c69f`, with real domain tests, build and headless browser proof. **Not G3 / Art Production 0.1 / physical-device QA.**

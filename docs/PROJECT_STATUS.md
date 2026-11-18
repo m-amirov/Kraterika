@@ -1,7 +1,7 @@
 # Kraterika — durable project checkpoint
 
 **Last design update:** 2026-11-18
-**Current production gate:** **G2 FIRST_PLAYABLE_VERIFIED**, limited to LV-01/LV-02. G1 remains PARTIAL (approved art; rest DRAFT); G3–G7 not closed.
+**Current production gate:** **G2 ENGINEERING_VERIFIED / PRODUCT_REJECTED**. Previous LV-01/LV-02 passed exact-SHA code/browser checks, but owner rejected their resemblance to «Небесная почта» on 2026-11-18. G2-R product redesign PROPOSED; G1 design revision required. G3–G7 not closed.
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
 **Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство; **Cozy Lunar Engineering / Art Pack 0.1** visual concept approved 2026-11-18. Remaining gameplay numbers and engine details are still G1 DRAFT.
@@ -12,12 +12,19 @@
 | --- | --- | --- |
 | G0 — Concept | DECISION_RECORDED | Название и направление подтверждены в обсуждении; официальный проектный game-brief см. GDD |
 | G1 — Design | PARTIAL / DRAFT | Art Direction approved by owner; GDD gameplay, colony, levels, acceptance & architecture not yet fully accepted |
-| G2 — First playable | FIRST_PLAYABLE_VERIFIED | [Quality 44285741527](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) and [real Chromium 44285741577](https://github.com/m-amirov/Kraterika/actions/runs/44285741577); bounded LV-01/LV-02 only |
+| G2 — First playable | FIRST_PLAYABLE_VERIFIED | Engineering smoke only at LV-01/LV-02. **PRODUCT_REJECTED** by owner 2026-11-18, new [G2-R](design/GAMEPLAY_RESET_2026-11-18.md) NOT_RUN. Previous [Quality](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) / [Chromium](https://github.com/m-amirov/Kraterika/actions/runs/44285741577) evidence retained |
 | G3 — Vertical slice | NOT_RUN | Нет 6 реально проходимых уровней/3 функциональных зданий/арт-пакета |
 | G4 — Content complete | NOT_RUN | Нет approved baseline и runtime/package proof |
 | G5 — Beta/player QA | NOT_RUN | Нет реальных человеческих плейтестов и browser evidence |
 | G6 — Release candidate | NOT_RUN | Generic Phaser candidate builder/rights check не выполнены |
 | G7 — Platform acceptance | BLOCKED | Требуются внешняя приёмка и отдельное разрешение владельца; публикация не разрешена |
+
+## Critical product feedback — 2026-11-18
+
+- User rejected the **gameplay and composition**, not merely the temporary graphics: too close to a previous «Небесная почта» project, lacks integrated active colony and engineering decisions visible on supplied screenshot.
+- Actual visual/gameplay reference: [image metadata and SHA](art/REVIEW_REFERENCE_2026-11-18.json); full image exists only in the user conversation and has **NOT** been committed to the repo.
+- Proposed correction and testable G2-R gates: [GAMEPLAY_RESET_2026-11-18](design/GAMEPLAY_RESET_2026-11-18.md). Product experience NOT approved; user’s expectation and rejection are confirmed, precise replacement mechanics are hypotheses.
+- **Hold Art Production 0.1 for old G2:** no expensive sprites or art replacement on the wrong mechanics, old greybox tests are useful simulation regressions only. Real production art should target new integrated board/colony design.
 
 ## G2 exact-source implementation and proof
 
@@ -40,8 +47,8 @@ Actual game logic: `src/game/simulation.ts`; missions: `src/game/missions.ts`; r
 
 ## Next precise actions
 
-1. **Art Production 0.1:** create production-grade independent game sprites and a real Phaser visual sample matching approved Art Direction, without altering proven G2 mechanics. Prepare the bounded Codex assignment.
-2. Independently prove Ludory Runtime Phaser adapter lifecycle on a disposable game fixture; do not change Ludory main, do not claim generic exporter available.
+1. **G2-R gameplay correction first:** replace separate abstract delivery-level feel with an integrated live lunar engineering scene, 2 robots, meaningful charging/manipulator/building decisions. Reconcile GDD, run real end-to-end browser and get product review. See [reset](design/GAMEPLAY_RESET_2026-11-18.md).
+2. **Then Art Production 0.1:** create individual high-quality game assets around the corrected game topology using approved Cozy Lunar Engineering and supplied screenshot; require source image bytes, runtime screenshots and QA.
 3. G3: add manipulator, LV-03..06, workshop/greenhouse colony building loop, production art, responsive/browser visual QA and human player study.
 4. G4 content completeness only against an owner-approved requirements baseline; G6/G7 requires actual package/rights/portal authorization.
 

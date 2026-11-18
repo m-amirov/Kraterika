@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "game": "kraterika",
+  "date": "2026-11-18",
+  "kind": "user-provided reference screenshot",
+  "filename": "image(20261118-104542).png",
+  "fileInGit": false,
+  "width": 1672,
+  "height": 941,
+  "format": "png",
+  "bytes": 3590997,
+  "sha256": "e38952da4b0e678b298fb479e0795ce763a36027c23f9e35cb0d35bae570cf82",
+  "scope": "integrated live lunar logistics scene and quality target; decorative UI numbers are not approved game systems",
+  "status": "PRODUCT_DIRECTION_REFERENCE",
+  "runtimeMatch": "NOT_IMPLEMENTED",
+  "codexSourceAvailability": "CHAT_ATTACHMENT_ONLY; provide actual image before art/visual comparison",
+  "decision": "docs/design/GAMEPLAY_RESET_2026-11-18.md"
+}

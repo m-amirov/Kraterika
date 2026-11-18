@@ -1,3 +1,5 @@
+> **PRIORITY PRODUCT FEEDBACK (2026-11-18):** User rejected current G2 product experience as a clone of «Небесная почта». Do **not** continue polishing or mass-generating assets for the legacy 8×8 LV-01/LV-02 greybox. Read [gameplay reset](docs/design/GAMEPLAY_RESET_2026-11-18.md) before G2/G3/Art Production. Technical CI PASS for the old G2 does not imply accepted gameplay; preserve old tests as regression only. Desired screenshot is logged by [exact hash](docs/art/REVIEW_REFERENCE_2026-11-18.json) but is NOT in Git; require original input before pixel-level art matching.
+
 # Kraterika — project instructions for Codex/agents
 
 ## Sources of truth and objective

@@ -111,3 +111,20 @@ test('Approved art direction is pinned to real concept SHA hashes without claimi
   assert.match(read('docs/PROJECT_STATUS.md'), /ART_DIRECTION_APPROVED/);
   assert.match(read('docs/art/ART_QA.md'), /ART_ASSETS_NOT_PREPARED/);
 });
+
+test('Owner gameplay rejection is recorded and prior G2 engineering PASS is not product acceptance', () => {
+ const status=read('docs/PROJECT_STATUS.md');
+ assert.match(status,/PRODUCT_REJECTED/);
+ assert.match(status,/G2-R/);
+ const reset=read('docs/design/GAMEPLAY_RESET_2026-11-18.md');
+ assert.match(reset,/Небесной почты/);
+ assert.match(reset,/Манипулятор/);
+ assert.match(reset,/заряд/);
+ const reference=json('docs/art/REVIEW_REFERENCE_2026-11-18.json');
+ assert.equal(reference.fileInGit,false);
+ assert.equal(reference.width,1672);
+ assert.equal(reference.height,941);
+ assert.match(reference.sha256,/^[a-f0-9]{64}$/);
+ assert.equal(reference.runtimeMatch,'NOT_IMPLEMENTED');
+ assert.match(read('AGENTS.md'),/Technical CI PASS/);
+});
