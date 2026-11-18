@@ -46,8 +46,9 @@ test('GDD v0.2 links resolve and 30 mission IDs replace obsolete product design'
  const levels=read('docs/design/LEVELS.md');
  assert.match(levels,/CT-01/);
  assert.match(levels,/CT-30/);
- assert.match(levels,/мастерск/);
- assert.match(levels,/оранжере/);
+ const effects=campaign.contracts.map(item=>item.worldEffect).join(' ').toLowerCase();
+ assert.match(effects,/мастерск/);
+ assert.match(effects,/оранжере/);
  assert.match(levels,/LV-01.*regression/i);
 });
 
