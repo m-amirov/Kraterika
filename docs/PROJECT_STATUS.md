@@ -49,7 +49,7 @@ All six references replay through `dispatchAttempt`; every result is gold, colli
 - Product entrypoint: `index.html` + `src/campaignMain.ts` + Phaser `src/ui/ColonyScene.ts`; G2-R moved to built `g2r.html` regression entry.
 - Colony consequences: dispatch/distribution/power/workshop/greenhouse/district become operational in order; workshop produces 2 components, greenhouse 2 food; CT-06 refuses to start unless both are operational.
 - Construction lifecycle is visible in the domain, operation HUD and colony map: locked → available → built → waiting for resources → operational.
-- Local browser receipt: six gold contracts on desktop mouse and mobile 390×844 touch, reload, CT-06 replay without duplicate reward, contract-card text geometry, 0 console/page errors. Screenshots are generated under `test-results/` and uploaded by `.github/workflows/browser-smoke.yml`; remote CI link pending final push.
+- Verified receipt for implementation baseline `d1e598b9`: six gold contracts on desktop mouse and mobile 390×844 touch, reload, CT-06 replay without duplicate reward, construction-state and contract-card text geometry, 0 console/page errors. Exact-source CI: [quality 44331530898](https://github.com/m-amirov/Kraterika/actions/runs/44331530898), [browser 44331530645](https://github.com/m-amirov/Kraterika/actions/runs/44331530645), [WFA/Ludory preflight 44331530789](https://github.com/m-amirov/Kraterika/actions/runs/44331530789), [screenshots 14441005261](https://github.com/m-amirov/Kraterika/actions/runs/44331530645/artifacts/14441005261).
 
 ## Current G2-R implementation — new main scene
 
