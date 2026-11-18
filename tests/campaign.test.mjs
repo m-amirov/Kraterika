@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {
   CONTRACTS, createWorld, startAttempt, dispatchAttempt, commitCompletion,
-  runSolutionTrace, careerScore, restartAttempt
+  runSolutionTrace, careerScore, restartAttempt, buildingStateForAttempt
 } from '../src/game/campaign.ts';
 
 const apply=(state,command)=>{
@@ -73,6 +73,27 @@ test('restart resets only mission attempt and preserves developed colony',()=>{
   assert.equal(restarted.budget,CONTRACTS[1].attemptBudget);
   assert.equal(world.buildings.dispatch.state,'operational');
   assert.deepEqual(world.clearedContracts,['CT-01']);
+});
+
+test('operation exposes available, built, waiting and operational building states',()=>{
+  const world=createWorld();let attempt=startAttempt(world,'CT-01').attempt;
+  assert.equal(buildingStateForAttempt(world,attempt,'dispatch'),'available');
+  attempt=apply(attempt,{type:'place',tool:'route',at:CONTRACTS[0].buildSites.route[0]});
+  assert.equal(buildingStateForAttempt(world,attempt,'dispatch'),'built');
+  attempt=apply(attempt,{type:'step'});
+  assert.equal(buildingStateForAttempt(world,attempt,'dispatch'),'waiting');
+  const completed=runSolutionTrace('CT-01').attempt,next=commitCompletion(world,completed).world;
+  assert.equal(buildingStateForAttempt(next,null,'dispatch'),'operational');
+  assert.equal(next.buildings.greenhouse.state,'locked');
+});
+
+test('unprioritized shared junction blocks both robots without overlap or energy spend',()=>{
+  let attempt=startAttempt(createWorld({clearedContracts:['CT-01']}),'CT-02').attempt;
+  attempt=apply(attempt,{type:'place',tool:'route',at:CONTRACTS[1].buildSites.route[0]});
+  const before=structuredClone(attempt.robots);attempt=apply(attempt,{type:'step'});
+  assert.equal(attempt.metrics.collisions,1);
+  assert.deepEqual(attempt.robots.map(r=>r.at),before.map(r=>r.at));
+  assert.deepEqual(attempt.robots.map(r=>r.energy),before.map(r=>r.energy));
 });
 
 test('charger is required for CT-03 and insufficient energy stops without negative charge',()=>{

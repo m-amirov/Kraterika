@@ -205,6 +205,13 @@ export function dispatchAttempt(state:MissionAttempt,command:AttemptCommand):Att
 export function restartAttempt(world:PersistentWorld,attempt:MissionAttempt):MissionAttempt{
   const result=startAttempt(world,attempt.contractId);if(result.error)throw Error(result.error);return result.attempt;
 }
+export function buildingStateForAttempt(world:PersistentWorld,attempt:MissionAttempt|null,id:BuildingId):BuildingState{
+  const persistent=world.buildings[id].state;
+  if(!attempt||persistent==='operational'||contract(attempt.contractId).worldEffect!==id)return persistent;
+  if(attempt.tick>0)return 'waiting';
+  if(attempt.placements.length>0)return 'built';
+  return persistent;
+}
 export function commitCompletion(world:PersistentWorld,attempt:MissionAttempt):{world:PersistentWorld;error?:string}{
   if(attempt.phase!=='complete'||attempt.medal<1)return {world,error:'Нельзя зафиксировать незавершённую операцию.'};
   const c=contract(attempt.contractId),next=clone(world),old=next.bestMedals[c.id]??0;

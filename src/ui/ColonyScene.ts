@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import {CONTRACTS} from '../game/campaign.ts';
+import {CONTRACTS,buildingStateForAttempt} from '../game/campaign.ts';
 import type {PersistentWorld,MissionAttempt,Point,Tool,BuildingId} from '../game/campaign.ts';
 
 const labels:Record<BuildingId,string>={dispatch:'Диспетчерская',distribution:'Распределитель',power:'Энергоузел',workshop:'Мастерская',greenhouse:'Оранжерея',district1:'Первые огни'};
@@ -40,7 +40,7 @@ export class ColonyScene extends Phaser.Scene{
     const g=this.add.graphics();g.fillStyle(0x111b30,1);g.fillRect(0,0,w,h);g.fillStyle(0x293650,1);g.fillEllipse(w*.5,h*.62,w*1.15,h*.82);
     for(let y=0;y<8;y++)for(let x=0;x<12;x++){const p=this.center({x,y});g.fillStyle((x+y)%2?0x33425a:0x38475f,.86);g.fillRoundedRect(p.x-this.cell*.47,p.y-this.cell*.43,this.cell*.94,this.cell*.86,6);g.lineStyle(1,0x6e7e94,.23);g.strokeRoundedRect(p.x-this.cell*.47,p.y-this.cell*.43,this.cell*.94,this.cell*.86,6);}
     g.lineStyle(Math.max(7,this.cell*.13),0x24566a,.9);const network=[{x:1,y:4},{x:2,y:4},{x:3,y:4},{x:4,y:4},{x:5,y:4},{x:6,y:4},{x:7,y:4},{x:8,y:4},{x:8,y:3},{x:9,y:2}];for(let i=1;i<network.length;i++){const a=this.center(network[i-1]),b=this.center(network[i]);g.lineBetween(a.x,a.y,b.x,b.y);}g.lineStyle(2,0x7ce9e8,.9);for(let i=1;i<network.length;i++){const a=this.center(network[i-1]),b=this.center(network[i]);g.lineBetween(a.x,a.y,b.x,b.y);}
-    for(const [id,b] of Object.entries(this.world.buildings) as [BuildingId,PersistentWorld['buildings'][BuildingId]][])this.building(g,id,b.at,b.state);
+    for(const [id,b] of Object.entries(this.world.buildings) as [BuildingId,PersistentWorld['buildings'][BuildingId]][])this.building(g,id,b.at,buildingStateForAttempt(this.world,this.attempt,id));
     if(this.attempt){
       const c=CONTRACTS.find(x=>x.id===this.attempt!.contractId)!;
       for(const robotConfig of c.robots){g.lineStyle(4,robotConfig.id==='R-01'?0x65d4df:0xf0b96d,.5);for(let i=1;i<robotConfig.path.length;i++){const a=this.center(robotConfig.path[i-1]),b=this.center(robotConfig.path[i]);g.lineBetween(a.x,a.y,b.x,b.y);}}

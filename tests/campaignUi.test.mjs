@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 
 test('G3 page mounts colony, operation and result controls without fake future buttons',()=>{
   const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
-  for(const id of ['colony-view','operation-view','result-view','contract-list','game','g3-step','g3-play','g3-pause','g3-restart','g3-transfer','back-to-colony']){
+  for(const id of ['colony-view','operation-view','result-view','contract-list','game','operation-building','g3-step','g3-play','g3-pause','g3-restart','g3-transfer','back-to-colony']){
     assert.match(html,new RegExp(`id=["']${id}["']`),id);
   }
   assert.doesNotMatch(html,/<button[^>]*>\s*(Задания дня|Лунный журнал|Лидеры)/i);

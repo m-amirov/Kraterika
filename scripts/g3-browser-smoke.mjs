@@ -46,8 +46,9 @@ async function solve(page,id,mobile=false){
     if(command.type==='place'){
       await page.locator(`[data-g3-tool="${command.tool}"]`).click();
       await tapCell(page,command.at,mobile);
+      if(id==='CT-01')assert.match(await page.locator('#operation-building').textContent(),/Построено/);
     }else if(command.type==='priority')await page.locator(command.robotId==='R-01'?'#priority-r1':'#priority-r2').click();
-    else if(command.type==='step')await page.locator('#g3-step').click();
+    else if(command.type==='step'){await page.locator('#g3-step').click();if(id==='CT-01'&&(await attempt(page)).tick===1)assert.match(await page.locator('#operation-building').textContent(),/Ожидает ресурсы/);}
     else if(command.type==='transfer')await page.locator('#g3-transfer').click();
   }
   await page.locator('#result-view').waitFor({state:'visible'});

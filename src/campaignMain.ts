@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import {ColonyScene} from './ui/ColonyScene.ts';
-import {CONTRACTS,careerScore,startAttempt,dispatchAttempt,commitCompletion,restartAttempt} from './game/campaign.ts';
+import {CONTRACTS,careerScore,startAttempt,dispatchAttempt,commitCompletion,restartAttempt,buildingStateForAttempt} from './game/campaign.ts';
 import type {PersistentWorld,MissionAttempt,ContractId,AttemptCommand,Tool,Point,BuildingId} from './game/campaign.ts';
 import {restoreCampaign,saveCampaign} from './game/campaignSave.ts';
 
@@ -17,6 +17,7 @@ function buildingCards():void{get('building-list').innerHTML=(Object.entries(wor
 function contractCards():void{get('contract-list').innerHTML=CONTRACTS.map(c=>{const cleared=world.clearedContracts.includes(c.id),unlocked=world.unlockedContracts.includes(c.id)||cleared,medal=world.bestMedals[c.id]??0;return `<button type="button" class="contract" data-contract="${c.id}" ${unlocked?'':'disabled'}><b>${c.id}</b><span class="contract-copy"><span class="contract-name">${c.name}</span><small>${c.goal}</small></span><span class="state">${cleared?`<span class="stars">${'★'.repeat(medal)}</span>`:unlocked?'Доступен':'Закрыт'}</span></button>`;}).join('');for(const el of document.querySelectorAll<HTMLButtonElement>('[data-contract]'))el.addEventListener('click',()=>openContract(el.dataset.contract as ContractId));}
 function operationHud():void{
   if(!attempt)return;const c=contractOf(attempt.contractId);text('operation-id',c.id);text('operation-name',c.name);text('operation-goal',c.goal);text('attempt-phase',attempt.phase==='planning'?'Подготовка':attempt.phase==='running'?'В работе':attempt.phase==='paused'?'Пауза':'Завершено');text('attempt-tick',String(attempt.tick));text('attempt-budget',String(attempt.budget));
+  text('operation-building',`${buildingName[c.worldEffect]} · ${stateName[buildingStateForAttempt(world,attempt,c.worldEffect)]}`);
   get('cargo-list').innerHTML=attempt.cargo.map(x=>`<div class="cargo">${x.kind} → ${x.destination}: <b>${x.delivered?'доставлено':x.holder}</b></div>`).join('');
   for(const el of document.querySelectorAll<HTMLButtonElement>('[data-g3-tool]')){const tool=el.dataset.g3Tool as Tool;el.hidden=!c.availableTools.includes(tool);el.setAttribute('aria-pressed',String(tool===selectedTool));el.disabled=attempt.phase==='running'||attempt.phase==='complete';}
   btn('priority-r1').hidden=!c.availableTools.includes('switch');btn('priority-r2').hidden=!c.availableTools.includes('switch')||attempt.robots.length<2;btn('priority-r1').disabled=attempt.phase==='complete';btn('priority-r2').disabled=attempt.phase==='complete';
