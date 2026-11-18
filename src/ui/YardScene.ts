@@ -30,11 +30,18 @@ export class YardScene extends Phaser.Scene {
       // horizontally scrolled mobile viewport. Derive coordinates from the
       // actual event client position and CURRENT canvas DOM rectangle.
       const e=pointer.event as MouseEvent | TouchEvent;
-      const client=('changedTouches' in e && e.changedTouches.length>0)?e.changedTouches[0]:e;
+      let clientX:number,clientY:number;
+      if('changedTouches' in e){
+        if(e.changedTouches.length===0)return;
+        clientX=e.changedTouches[0].clientX;
+        clientY=e.changedTouches[0].clientY;
+      }else{
+        clientX=e.clientX;clientY=e.clientY;
+      }
       const rect=this.game.canvas.getBoundingClientRect();
       if(rect.width<=0||rect.height<=0)return;
-      const x=(client.clientX-rect.left)*this.scale.width/rect.width;
-      const y=(client.clientY-rect.top)*this.scale.height/rect.height;
+      const x=(clientX-rect.left)*this.scale.width/rect.width;
+      const y=(clientY-rect.top)*this.scale.height/rect.height;
       const point=this.pick(x,y);
       this.lastPointer={x,y,picked:point};
       if(point)this.onCell?.(point);
