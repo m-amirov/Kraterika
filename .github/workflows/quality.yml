@@ -12,7 +12,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    name: Node 22 / G2 simulation and Phaser build
+    name: Node 22 / G2-R yard and legacy regression build
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

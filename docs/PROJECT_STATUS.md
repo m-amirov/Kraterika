@@ -1,7 +1,7 @@
 # Kraterika — durable project checkpoint
 
 **Last design update:** 2026-11-18
-**Current production gate:** **G2 ENGINEERING_VERIFIED / PRODUCT_REJECTED**. Previous LV-01/LV-02 passed exact-SHA code/browser checks, but owner rejected their resemblance to «Небесная почта» on 2026-11-18. G2-R product redesign PROPOSED; G1 design revision required. G3–G7 not closed.
+**Current production gate:** **G2-R LIVE YARD IMPLEMENTED / AUTOMATED QA PENDING / OWNER PRODUCT REVIEW PENDING**. Old G2 LV-01/02 still technically verified but rejected as product; new integrated yard source is implemented. No product PASS until actual browser gameplay and owner review. G3–G7 remain open.
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
 **Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство; **Cozy Lunar Engineering / Art Pack 0.1** visual concept approved 2026-11-18. Remaining gameplay numbers and engine details are still G1 DRAFT.
@@ -18,6 +18,14 @@
 | G5 — Beta/player QA | NOT_RUN | Нет реальных человеческих плейтестов и browser evidence |
 | G6 — Release candidate | NOT_RUN | Generic Phaser candidate builder/rights check не выполнены |
 | G7 — Platform acceptance | BLOCKED | Требуются внешняя приёмка и отдельное разрешение владельца; публикация не разрешена |
+
+## Current G2-R implementation — new main scene
+
+- Implemented separate deterministic live-yard domain `src/game/yard.ts`, browser state validation/storage in `src/game/yardSave.ts`, Phaser 2.5D greybox scene `src/ui/YardScene.ts`, UI controller `src/yardMain.ts` and interactive main `index.html`.
+- On one shared lunar station map: two rovers and independent cargo orders, functioning route construction, switch, charging pad, manipulator with manual cargo hand-off, functional workshop and player-built greenhouse. Water turns greenhouse on and exposes next food contract, parts switch workshop on; not just fake counter animations.
+- Sandbox build budget: 20; route 1, charger 3, arm 4, dome 6. Staged first-clear reward flag 9 separately. These costs are G2-R test values, not the finalized G3 economy.
+- Added domain tests including regression for charging resume, exact game state after win, lack of progress when equipment/building missing, invalid actions and undo cost; added Chromium gameplay smoke via real pointer/touch in `scripts/yard-browser-smoke.mjs`.
+- Browser QA, camera/hitboxes and product approval still require real proof on final executable SHA. See [G2-R specification](G2R_LIVE_YARD.md). No shipping sprites or native platform integration yet.
 
 ## Critical product feedback — 2026-11-18
 
@@ -47,7 +55,7 @@ Actual game logic: `src/game/simulation.ts`; missions: `src/game/missions.ts`; r
 
 ## Next precise actions
 
-1. **G2-R gameplay correction first:** replace separate abstract delivery-level feel with an integrated live lunar engineering scene, 2 robots, meaningful charging/manipulator/building decisions. Reconcile GDD, run real end-to-end browser and get product review. See [reset](design/GAMEPLAY_RESET_2026-11-18.md).
+1. **G2-R verification and owner review:** run new real browser smoke on exact main SHA, inspect screenshot artifacts and obtain actual owner reaction to interactive unified lunar yard. Do not infer approval from unit PASS. See [G2-R](G2R_LIVE_YARD.md).
 2. **Then Art Production 0.1:** create individual high-quality game assets around the corrected game topology using approved Cozy Lunar Engineering and supplied screenshot; require source image bytes, runtime screenshots and QA.
 3. G3: add manipulator, LV-03..06, workshop/greenhouse colony building loop, production art, responsive/browser visual QA and human player study.
 4. G4 content completeness only against an owner-approved requirements baseline; G6/G7 requires actual package/rights/portal authorization.

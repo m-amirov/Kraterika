@@ -8,6 +8,8 @@ Build **Кратерика**, an original 2D lunar logistics puzzle with functio
 
 No unrelated novel/legacy-game migration, large refactor or framework replacement.
 
+**Current executable experience G2-R:** `index.html` loads `src/yardMain.ts`, `src/ui/YardScene.ts` and pure `src/game/yard.ts`. Legacy `src/main.ts` + LV01/LV02 exist only as engine regression fixtures; do NOT use them as the game entrypoint or approved Art Production target. Read `docs/G2R_LIVE_YARD.md`, run real browser smoke, and require owner product review. Preserve approved Art Direction and do not mistake procedural greybox for shipping assets.
+
 **Art direction approved (2026-11-18):** [Cozy Lunar Engineering](docs/art/ART_DIRECTION.md) / [Art Pack 0.1](docs/art/ART_PACK_0.1.md). Never silently substitute primitive flat placeholders for final art, mix incompatible cameras/styles, or treat concept screenshots as sprite sheets. Asset originals are not yet in Git; create separately structured, original, source-tracked game assets and verify them in Phaser/mobile before claiming acceptance.
 
 ## WFA integration (project-scoped, not globally enabled)

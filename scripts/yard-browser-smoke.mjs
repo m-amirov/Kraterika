@@ -19,6 +19,7 @@ const tap=async(page,x,y,mobile=false)=>{
  const layout=await page.evaluate(()=>window.kraterikaYard.getLayout());
  const p={x:layout.originX+(x+.5+(y+.5)*layout.skew)*layout.unit,
           y:layout.originY+(y+.5)*layout.unit*layout.rise};
+ await page.locator('#viewport').scrollIntoViewIfNeeded();
  await page.locator('#viewport').evaluate((el,px)=>{
   el.scrollLeft=Math.max(0,px-el.clientWidth/2);
  },p.x);
@@ -49,9 +50,7 @@ async function finishYard(page,mobile=false){
  assert.equal(state.budget,6,'All 4 actual build costs must apply');
  assert.equal(state.modules.find(x=>x.id==='greenhouse').built,true);
  assert.equal(state.equipment.length,2);
- // The Play/Pause actions are real and no movement occurs while explicitly paused.
- await page.locator('#yard-play').click();await page.locator('#yard-pause').click();
- assert.equal((await snapshot(page)).phase,'paused');
+ // Deterministic single-step controls avoid races with wall-clock Play/Pause.
  await page.locator('#yard-step').click();
  await page.locator('#yard-step').click();
  state=await snapshot(page);
@@ -97,6 +96,13 @@ try{
  assert.equal((await snapshot(page)).completedOnce,true,'Award flag must survive restart');
  await finishYard(page);
  assert.equal(await page.locator('#yard-reward').textContent(),'9','No duplicate award on replay');
+ // Exercise Play/Pause on a separate reset so elapsed UI interaction time cannot
+ // change the source-derived tick-by-tick solution fixture.
+ await page.locator('#yard-restart').click();
+ await page.locator('#yard-play').click();
+ assert.equal((await snapshot(page)).phase,'running');
+ await page.locator('#yard-pause').click();
+ assert.equal((await snapshot(page)).phase,'paused');
  await desktop.close();
 
  const mobile=await browser.newContext({

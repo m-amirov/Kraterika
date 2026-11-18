@@ -128,3 +128,14 @@ test('Owner gameplay rejection is recorded and prior G2 engineering PASS is not 
  assert.equal(reference.runtimeMatch,'NOT_IMPLEMENTED');
  assert.match(read('AGENTS.md'),/Technical CI PASS/);
 });
+
+test('G2-R browser HUD mounts every required static control to prevent bootstrap crash',()=>{
+ const source=read('src/yardMain.ts');
+ const html=read('index.html');
+ const ids=new Set([...source.matchAll(/(?:get|text|btn)\('([^']+)'/g)].map(m=>m[1]));
+ assert.ok(ids.size>12);
+ for(const id of ids)assert.ok(html.includes('id="'+id+'"'),'Missing element '+id);
+ assert.match(html,/src\/yardMain\.ts/);
+ assert.match(read('src/game/yard.ts'),/function move/);
+ assert.match(read('scripts/yard-browser-smoke.mjs'),/G2R_LIVE_YARD_BROWSER_VERIFIED/);
+});
