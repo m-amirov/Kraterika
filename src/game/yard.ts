@@ -99,7 +99,7 @@ function move(s:Yard):Yard{
   if(rover.status==='delivered')continue;
   if(at(rover.at,SITES.greenhouse)&&rover.cargo==='water') {
    deliverWater(next,rover);
-   if(rover.status==='delivered')continue;
+   if(next.cargo.find(c=>c.id==='water')?.delivered)continue;
    messages.push('Постройте оранжерею для разгрузки воды');
    rover.status='waiting';continue;
   }
