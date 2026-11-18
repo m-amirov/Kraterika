@@ -1,0 +1,26 @@
+name: quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    name: Node 22 / G1 contracts and Phaser scaffold build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned dependency versions (lockfile creation pending)
+        run: npm install --ignore-scripts --no-audit --no-fund
+      - name: Check project and build
+        run: npm run check
+      - name: Verify generated manifest matches source
+        run: cmp ludory.project.json dist/ludory.project.json

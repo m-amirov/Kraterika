@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "project": "Kraterika",
+  "wfa": {
+    "repository": "https://github.com/m-amirov/workflow-for-agents",
+    "sourceSha": "6c8d80d15155cd8ccfbd245fce9450f61b5133f3",
+    "install": "PROJECT_SCOPE_ON_DEMAND",
+    "skills": [
+      "game-docs",
+      "gameplay-design",
+      "gameplay-playtesting",
+      "game-content-qa",
+      "phaser-core",
+      "game-ui-ux",
+      "prototype-fast",
+      "regression-testing",
+      "browser-qa",
+      "visual-qa",
+      "git-workflow",
+      "codebase-exploration",
+      "production-art",
+      "release-verification"
+    ]
+  },
+  "ludory": {
+    "repository": "https://github.com/m-amirov/ludory",
+    "sourceSha": "933c73b195eaf3bfffd12a31ab1cbadb27989eea",
+    "manifest": "ludory.project.json",
+    "binding": "CORE_COMPATIBLE_MANIFEST_ONLY",
+    "studioProvenance": "NOT_RUN",
+    "runtimePhaserIntegration": "NOT_RUN",
+    "genericPhaserExport": "NOT_VERIFIED",
+    "platformAcceptance": "NOT_RUN"
+  },
+  "runtime": {
+    "engine": "phaser",
+    "phaserMajor": 3,
+    "language": "typescript",
+    "bundler": "vite",
+    "nodeMinimum": "22",
+    "platformTargets": [
+      "yandex-games",
+      "vk-games"
+    ]
+  },
+  "authorization": {
+    "wfaProjectInstall": "LOCAL_EXPLICIT_APPLY_ONLY",
+    "ludoryFrameworkMutation": false,
+    "publishing": false,
+    "ads": false,
+    "inAppPurchases": false,
+    "thirdPartyArtUse": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "id": "kraterika",
+  "version": "0.1.0",
+  "title": {
+    "ru": "Кратерика"
+  },
+  "engine": "phaser",
+  "targets": [
+    "yandex-games",
+    "vk-games"
+  ]
+}
