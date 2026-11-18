@@ -42,10 +42,22 @@ async function ready(page){
  assert.equal((await snapshot(page)).revision,2);
 }
 async function finishYard(page,mobile=false){
- await choose(page,'route');await tap(page,6,4,mobile);
- await choose(page,'charger');await tap(page,5,4,mobile);
- await choose(page,'arm');await tap(page,8,3,mobile);
- await choose(page,'greenhouse');await tap(page,8,2,mobile);
+ const place=async(tool,x,y,expected)=>{
+   await choose(page,tool);await tap(page,x,y,mobile);
+   const stepState=await snapshot(page);
+   if(stepState.budget!==expected){
+     const label=mobile?'mobile':'desktop';
+     await page.screenshot({path:'test-results/g2r-'+label+'-build-error-'+tool+'.png',fullPage:true});
+     console.error(JSON.stringify({tool,at:{x,y},expected,budget:stepState.budget,
+       notice:stepState.notice,equipment:stepState.equipment,added:stepState.added,
+       modules:stepState.modules,layout:await page.evaluate(()=>window.kraterikaYard.getLayout())}));
+   }
+   assert.equal(stepState.budget,expected,'Build must apply via real pointer: '+tool);
+ };
+ await place('route',6,4,19);
+ await place('charger',5,4,16);
+ await place('arm',8,3,12);
+ await place('greenhouse',8,2,6);
  let state=await snapshot(page);
  assert.equal(state.budget,6,'All 4 actual build costs must apply');
  assert.equal(state.modules.find(x=>x.id==='greenhouse').built,true);
