@@ -11,6 +11,15 @@ const server=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview','
 const errors=[];let browser;
 const world=page=>page.evaluate(()=>window.kraterikaCampaign.getWorld());
 const attempt=page=>page.evaluate(()=>window.kraterikaCampaign.getAttempt());
+async function assertContractTextGeometry(page,label){
+  const failures=await page.locator('.contract').evaluateAll(cards=>cards.flatMap((card,index)=>{
+    const boundary=card.getBoundingClientRect(),rects=['.contract-name','small','.state'].map(selector=>card.querySelector(selector)?.getBoundingClientRect());
+    const outside=rects.some(rect=>rect&&(rect.left<boundary.left-1||rect.right>boundary.right+1||rect.top<boundary.top-1||rect.bottom>boundary.bottom+1));
+    const intersects=(a,b)=>a&&b&&a.left<b.right-1&&a.right>b.left+1&&a.top<b.bottom-1&&a.bottom>b.top+1;
+    return outside||intersects(rects[0],rects[1])||intersects(rects[0],rects[2])||intersects(rects[1],rects[2])?[index]:[];
+  }));
+  assert.deepEqual(failures,[],label+' contract text must not overlap or escape its card');
+}
 function observe(page,label){page.on('pageerror',e=>errors.push(`${label} pageerror ${e.message}`));page.on('console',m=>{if(m.type()==='error')errors.push(`${label} console ${m.text()}`);});}
 async function ready(page,clear=false){
   await page.goto(origin,{waitUntil:'networkidle'});if(clear){await page.evaluate(()=>localStorage.clear());await page.reload({waitUntil:'networkidle'});}
@@ -48,6 +57,7 @@ async function solve(page,id,mobile=false){
 }
 async function fullChapter(page,mobile=false,label='desktop'){
   const initial=await world(page);assert.equal(initial.materials,12);assert.deepEqual(initial.clearedContracts,[]);
+  await assertContractTextGeometry(page,label+' start');
   await page.screenshot({path:`test-results/g3-${label}-colony-start.png`,fullPage:true});
   for(let i=1;i<=6;i++){
     const id=`CT-0${i}`;assert.equal(await page.locator(`[data-contract="${id}"]`).isEnabled(),true,id+' must unlock');
@@ -55,6 +65,7 @@ async function fullChapter(page,mobile=false,label='desktop'){
     await solve(page,id,mobile);
   }
   const final=await world(page);assert.deepEqual(final.clearedContracts,['CT-01','CT-02','CT-03','CT-04','CT-05','CT-06']);assert.equal(final.materials,28);assert.equal(final.production.components,2);assert.equal(final.production.food,2);assert.equal(final.buildings.workshop.state,'operational');assert.equal(final.buildings.greenhouse.state,'operational');assert.equal(final.buildings.district1.state,'operational');assert.equal(await page.locator('#career-score').textContent(),'1800');
+  await assertContractTextGeometry(page,label+' complete');
   await page.screenshot({path:`test-results/g3-${label}-colony-complete.png`,fullPage:true});return final;
 }
 try{
