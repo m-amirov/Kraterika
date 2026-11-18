@@ -1,7 +1,7 @@
 # Kraterika — durable project checkpoint
 
 **Last design update:** 2026-11-18
-**Current production gate:** **G2-R LIVE YARD IMPLEMENTED / AUTOMATED QA PENDING / OWNER PRODUCT REVIEW PENDING**. Old G2 LV-01/02 still technically verified but rejected as product; new integrated yard source is implemented. No product PASS until actual browser gameplay and owner review. G3–G7 remain open.
+**Current production gate:** **G2-R ENGINEERING_VERIFIED / PRODUCT_REVIEW_PENDING**. New integrated yard passed all source-bound unit/build and real desktop/mobile-emulated Chromium interaction tests on exact code SHA `bec9d303ced2957625e7a833f70f2cd5d84c6810`. Gameplay/visual acceptance by owner has NOT_RUN. Old LV-01/02 remain product-rejected; G3–G7 remain open.
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
 **Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство; **Cozy Lunar Engineering / Art Pack 0.1** visual concept approved 2026-11-18. Remaining gameplay numbers and engine details are still G1 DRAFT.
@@ -13,6 +13,7 @@
 | G0 — Concept | DECISION_RECORDED | Название и направление подтверждены в обсуждении; официальный проектный game-brief см. GDD |
 | G1 — Design | PARTIAL / DRAFT | Art Direction approved by owner; GDD gameplay, colony, levels, acceptance & architecture not yet fully accepted |
 | G2 — First playable | FIRST_PLAYABLE_VERIFIED | Engineering smoke only at LV-01/LV-02. **PRODUCT_REJECTED** by owner 2026-11-18, new [G2-R](design/GAMEPLAY_RESET_2026-11-18.md) NOT_RUN. Previous [Quality](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) / [Chromium](https://github.com/m-amirov/Kraterika/actions/runs/44285741577) evidence retained |
+| G2-R — Live Yard | ENGINEERING_VERIFIED / PRODUCT_REVIEW_PENDING | [Unit/build 44304280512](https://github.com/m-amirov/Kraterika/actions/runs/44304280512), [Chromium 44304280297](https://github.com/m-amirov/Kraterika/actions/runs/44304280297); owner visual/gameplay acceptance NOT_RUN |
 | G3 — Vertical slice | NOT_RUN | Нет 6 реально проходимых уровней/3 функциональных зданий/арт-пакета |
 | G4 — Content complete | NOT_RUN | Нет approved baseline и runtime/package proof |
 | G5 — Beta/player QA | NOT_RUN | Нет реальных человеческих плейтестов и browser evidence |
@@ -25,7 +26,9 @@
 - On one shared lunar station map: two rovers and independent cargo orders, functioning route construction, switch, charging pad, manipulator with manual cargo hand-off, functional workshop and player-built greenhouse. Water turns greenhouse on and exposes next food contract, parts switch workshop on; not just fake counter animations.
 - Sandbox build budget: 20; route 1, charger 3, arm 4, dome 6. Staged first-clear reward flag 9 separately. These costs are G2-R test values, not the finalized G3 economy.
 - Added domain tests including regression for charging resume, exact game state after win, lack of progress when equipment/building missing, invalid actions and undo cost; added Chromium gameplay smoke via real pointer/touch in `scripts/yard-browser-smoke.mjs`.
-- Browser QA, camera/hitboxes and product approval still require real proof on final executable SHA. See [G2-R specification](G2R_LIVE_YARD.md). No shipping sprites or native platform integration yet.
+- [Real browser G2-R smoke 44304280297](https://github.com/m-amirov/Kraterika/actions/runs/44304280297) **SUCCESS** on exact code SHA `bec9d303`: desktop mouse and mobile 390×844 emulated touch both completed every build/route/charge/transfer/greenhouse/workshop interaction, restored saves after reload and verified first-clear reward idempotence; no page/console errors. [Screenshots artifact](https://github.com/m-amirov/Kraterika/actions/runs/44304280297/artifacts/14427765921). [Quality 44304280512](https://github.com/m-amirov/Kraterika/actions/runs/44304280512): **32/32 tests + TypeScript/Vite build SUCCESS**. [WFA/Ludory preflight 44304280342](https://github.com/m-amirov/Kraterika/actions/runs/44304280342): SUCCESS, still only Ludory Core and ephemeral Skill installation.
+- **Root-cause fix during browser QA:** using live `getBoundingClientRect()` for client→canvas mapping rather than Phaser pointer coordinates which omitted horizontal scroll; mobile interaction is source-bound and regression tested by browser smoke. Other issues fixed: charging status not cleared on next tick, missing HUD DOM target, and deterministic browser step race.
+- All source/art documents preserved; game remains **procedural 2.5D greybox**, no approved shipping sprites and no native SDK integration. Product/user acceptance still NOT_RUN. See [G2-R](G2R_LIVE_YARD.md).
 
 ## Critical product feedback — 2026-11-18
 
@@ -55,7 +58,7 @@ Actual game logic: `src/game/simulation.ts`; missions: `src/game/missions.ts`; r
 
 ## Next precise actions
 
-1. **G2-R verification and owner review:** run new real browser smoke on exact main SHA, inspect screenshot artifacts and obtain actual owner reaction to interactive unified lunar yard. Do not infer approval from unit PASS. See [G2-R](G2R_LIVE_YARD.md).
+1. **Owner G2-R gameplay and visual review:** inspect the actual [desktop/mobile browser screenshots](https://github.com/m-amirov/Kraterika/actions/runs/44304280297/artifacts/14427765921), start the game and judge whether the integrated logistics yard matches the intended design. Code and interaction QA passed; product acceptance is still pending.
 2. **Then Art Production 0.1:** create individual high-quality game assets around the corrected game topology using approved Cozy Lunar Engineering and supplied screenshot; require source image bytes, runtime screenshots and QA.
 3. G3: add manipulator, LV-03..06, workshop/greenhouse colony building loop, production art, responsive/browser visual QA and human player study.
 4. G4 content completeness only against an owner-approved requirements baseline; G6/G7 requires actual package/rights/portal authorization.

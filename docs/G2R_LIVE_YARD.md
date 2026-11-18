@@ -1,7 +1,7 @@
 # G2-R — первая инженерная площадка Кратерики
 
 **Тип:** новый playable после отклонения старого G2.  
-**Статус:** ENGINEERING_IMPLEMENTED / BROWSER_AND_PRODUCT_GATE_PENDING до документирования реального CI на итоговом SHA.  
+**Статус:** `ENGINEERING_VERIFIED / PRODUCT_REVIEW_PENDING` — на exact executable SHA `bec9d303ced2957625e7a833f70f2cd5d84c6810`. Ни CI, ни этот документ не означают визуальной и игровой приёмки владельцем.  
 **Дизайн-основание:** [решение владельца и новый геймплей](design/GAMEPLAY_RESET_2026-11-18.md); [Art Direction](art/ART_DIRECTION.md); [скриншот-референс](art/REVIEW_REFERENCE_2026-11-18.json).
 
 ## Что реализовано непосредственно в игре
@@ -46,6 +46,17 @@
 - Оборудование пока имеет **ограниченные заранее отмеченные площадки** и одну запланированную производственную цепь; свободное размещение по всей базе, 30 карт, полноценный ресурсный баланс, улучшения, второй исполняемый контракт и дополнительные специализации роботов — **не готовы**.
 - Ludory Core manifest / WFA integration-preflight не означает Ludory Runtime, Connect SDK, VK/Yandex ZIP или официальную модерацию.
 - Отсутствие подтверждения владельцем новой игровой сцены = **G2-R PRODUCT_REVIEW_PENDING**, даже при успешных CI.
+
+## Реальное исполнение и проверка на exact source SHA
+
+- [Quality 44304280512](https://github.com/m-amirov/Kraterika/actions/runs/44304280512): `npm ci`, **32/32 unit/contract tests PASS**, `tsc --noEmit`, Vite build и исходный Ludory manifest parity — SUCCESS.
+- [Chromium smoke 44304280297](https://github.com/m-amirov/Kraterika/actions/runs/44304280297): реальный desktop mouse + mobile 390×844 touch, выбор инструментов/строительство, два маршрута, стрелка, реальная зарядка, манипулятор, завершение контракта, активные здания, повтор с прежней наградой, перезагрузка сохранения; **G2R_LIVE_YARD_BROWSER_VERIFIED**, errors `[]`.
+- [Точные скриншоты desktop/mobile](https://github.com/m-amirov/Kraterika/actions/runs/44304280297/artifacts/14427765921) — GitHub Actions artifact `g2r-live-yard-screenshots`, ID `14427765921`. Факт существования снимка не доказывает соответствие approved art direction.
+- [WFA/Ludory Integration preflight 44304280342](https://github.com/m-amirov/Kraterika/actions/runs/44304280342): SUCCESS для pinned WFA project-scope Skills и Ludory Core manifest. Generic Phaser export/Runtime/Connect NOT_RUN.
+
+**Исправленные первопричины:** после charging rover должен возобновлять движение (regression), canvas в горизонтально прокручиваемом контейнере должен вычислять pointer cell из `clientX/clientY` + живого `getBoundingClientRect()`, HUD обязан содержать все запрашиваемые DOM-элементы, тест Play/Pause отделён от детерминированного пошагового прохождения.
+
+**Ещё открыто:** владелец не принимал новый геймплей и не оценивал реальные desktop/mobile кадры. Три утверждённых визуальных концепта не изготовлены как рабочие спрайты. Арт-пак и G3–G7 — NOT_RUN.
 
 ## Обязательный gate доказательств
 

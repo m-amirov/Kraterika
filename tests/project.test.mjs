@@ -139,3 +139,15 @@ test('G2-R browser HUD mounts every required static control to prevent bootstrap
  assert.match(read('src/game/yard.ts'),/function move/);
  assert.match(read('scripts/yard-browser-smoke.mjs'),/G2R_LIVE_YARD_BROWSER_VERIFIED/);
 });
+
+test('G2-R engineering receipts are concrete, product approval remains explicitly pending',()=>{
+ const status=read('docs/PROJECT_STATUS.md');
+ const g2r=read('docs/G2R_LIVE_YARD.md');
+ assert.match(status,/G2-R ENGINEERING_VERIFIED/);
+ assert.match(status,/PRODUCT_REVIEW_PENDING/);
+ assert.match(g2r,/44304280297/);
+ assert.match(g2r,/44304280512/);
+ assert.match(g2r,/14427765921/);
+ assert.match(g2r,/getBoundingClientRect/);
+ assert.match(read('docs/art/ART_DIRECTION.md'),/ART_DIRECTION_APPROVED/);
+});
