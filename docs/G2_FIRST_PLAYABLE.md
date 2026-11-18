@@ -1,6 +1,6 @@
 # G2 — First Playable: exact play contract
 
-**Status:** IMPLEMENTED / VERIFICATION_PENDING. This document describes a **real greybox**, not final graphics or Art Pack 0.1 production. Do not mark PASS without the linked exact-HEAD CI jobs and a browser gameplay result.
+**Status: FIRST_PLAYABLE_VERIFIED** for LV-01/LV-02 at code SHA `59ce030c690b59520c6437049c01c0546f02c69f`, with real domain tests, build and headless browser proof. **Not G3 / Art Production 0.1 / physical-device QA.**
 
 ## What players can actually do
 
@@ -32,8 +32,8 @@
 | UX-001 basic mouse/touch controls | Playwright Chromium desktop/mobile emulation |
 
 Execution:
-- Node 22: \`npm ci && npm run check\`
-- Browser: built output \`dist/\`, Chrome + Playwright; \`node scripts/browser-smoke.mjs\` after CI-only dependency setup.
-- Actual CI: [quality runs](https://github.com/m-amirov/Kraterika/actions/workflows/quality.yml), [browser smoke](https://github.com/m-amirov/Kraterika/actions/workflows/browser-smoke.yml). Add exact run SHA/results to the checkpoint after verification.
+- Node 22: `npm ci && npm run check`
+- Browser: built output `dist/`, Chrome + Playwright; `node scripts/browser-smoke.mjs` after CI-only dependency setup.
+- Actual CI at exact code SHA: [Quality 44285741527](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) **16/16 PASS + build**; [Chromium gameplay smoke 44285741577](https://github.com/m-amirov/Kraterika/actions/runs/44285741577) **G2_BROWSER_SMOKE_VERIFIED**, desktop LV01/LV02 mouse/step/switch/win, mobile emulated touch LV01/win, reload and idempotent rewards, zero JS errors; [WFA/Ludory 44285741512](https://github.com/m-amirov/Kraterika/actions/runs/44285741512) SUCCESS. Screen captures in run artifact `g2-browser-screenshots`.
 
 **Boundaries:** automated Chromium emulation is not a physical device test, human player test, or confirmation of art quality. G3+ stays **NOT_RUN**, G7 publication **BLOCKED**.

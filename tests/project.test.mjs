@@ -64,14 +64,15 @@ test('Guaranteed first-clear resources fund two mandatory buildings with slack',
   assert.match(economy, /одноразов/);
 });
 
-test('G2 first playable is separately gated from still-unrun G3-G7', () => {
+test('G2 first playable has source-bound evidence and G3–G7 remain unrun', () => {
   const status = read('docs/PROJECT_STATUS.md');
   for (const gate of ['G3','G4','G5','G6']) {
     assert.match(status, new RegExp('\\| ' + gate + ' [^\\n]+\\| NOT_RUN \\|'));
   }
   assert.match(status, /\| G7 [^\n]+\| BLOCKED \|/);
-  assert.match(status, /\| G2 — First playable \| IN_PROGRESS \|/);
+  assert.match(status, /\| G2 — First playable \| FIRST_PLAYABLE_VERIFIED \|/);
   assert.match(read('src/main.ts'), /G2 first playable/);
+  assert.match(read('docs/G2_FIRST_PLAYABLE.md'), /44285741577/);
   assert.match(read('scripts/browser-smoke.mjs'), /G2_BROWSER_SMOKE_VERIFIED/);
   assert.match(read('AGENTS.md'), /No independent publishing/);
 });
@@ -88,4 +89,25 @@ test('Project requires game QA, native Ludory adaptation and real human evidence
   for (const name of ['game-docs','gameplay-design','game-content-qa','gameplay-playtesting','phaser-core','git-workflow']) {
     assert.ok(skills.includes(name), 'WFA skill missing from selected set: ' + name);
   }
+});
+
+test('Approved art direction is pinned to real concept SHA hashes without claiming game assets', () => {
+  const art = json('docs/art/REFERENCE_MANIFEST.json');
+  assert.equal(art.game, 'kraterika');
+  assert.equal(art.approval.decision, 'ART_DIRECTION_APPROVED');
+  assert.equal(art.originalsAreInGit, false);
+  assert.equal(art.references.length, 3);
+  for (const image of art.references) {
+    assert.match(image.sha256, /^[a-f0-9]{64}$/);
+    assert.ok(image.width >= 1000 && image.height >= 800);
+    assert.equal(image.repositoryPath, null);
+    assert.equal(image.approvedFor, 'style_reference_only');
+  }
+  assert.equal(art.runtimeStatus.gameArtComplete, false);
+  assert.equal(art.runtimeStatus.runtimeIntegration, 'NOT_RUN');
+  const style = read('docs/art/ART_DIRECTION.md');
+  assert.match(style, /ART_DIRECTION_APPROVED/);
+  assert.match(style, /Цветовые роли не равны правилам игры/);
+  assert.match(read('docs/PROJECT_STATUS.md'), /ART_DIRECTION_APPROVED/);
+  assert.match(read('docs/art/ART_QA.md'), /ART_ASSETS_NOT_PREPARED/);
 });

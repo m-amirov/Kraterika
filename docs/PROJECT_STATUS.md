@@ -1,44 +1,49 @@
 # Kraterika — durable project checkpoint
 
 **Last design update:** 2026-11-18
-**Current production gate:** G2 — first playable implemented, **IN_PROGRESS / browser QA pending**. G1 design remains partially approved (owner-approved art, other GDD figures DRAFT).
+**Current production gate:** **G2 FIRST_PLAYABLE_VERIFIED**, limited to LV-01/LV-02. G1 remains PARTIAL (approved art; rest DRAFT); G3–G7 not closed.
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
-**Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство. Остальные числа/технические решения пока рабочие предложения G1.
+**Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство; **Cozy Lunar Engineering / Art Pack 0.1** visual concept approved 2026-11-18. Remaining gameplay numbers and engine details are still G1 DRAFT.
 
 ## Stage status
 
 | Gate | Status | Evidence / blocker |
 | --- | --- | --- |
 | G0 — Concept | DECISION_RECORDED | Название и направление подтверждены в обсуждении; официальный проектный game-brief см. GDD |
-| G1 — Design | DRAFT | GDD, gameplay, colony, levels, art, acceptance & architecture; owner acceptance NOT_RUN |
-| G2 — First playable | IN_PROGRESS | LV-01/02 domain + interactive Phaser controls implemented; source-bound test and browser smoke pending; see [G2](G2_FIRST_PLAYABLE.md) |
+| G1 — Design | PARTIAL / DRAFT | Art Direction approved by owner; GDD gameplay, colony, levels, acceptance & architecture not yet fully accepted |
+| G2 — First playable | FIRST_PLAYABLE_VERIFIED | [Quality 44285741527](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) and [real Chromium 44285741577](https://github.com/m-amirov/Kraterika/actions/runs/44285741577); bounded LV-01/LV-02 only |
 | G3 — Vertical slice | NOT_RUN | Нет 6 реально проходимых уровней/3 функциональных зданий/арт-пакета |
 | G4 — Content complete | NOT_RUN | Нет approved baseline и runtime/package proof |
 | G5 — Beta/player QA | NOT_RUN | Нет реальных человеческих плейтестов и browser evidence |
 | G6 — Release candidate | NOT_RUN | Generic Phaser candidate builder/rights check не выполнены |
 | G7 — Platform acceptance | BLOCKED | Требуются внешняя приёмка и отдельное разрешение владельца; публикация не разрешена |
 
-## G2 implementation checkpoint (verification pending)
+## G2 exact-source implementation and proof
 
-- Added pure deterministic simulation in `src/game/simulation.ts`, mission fixtures in `src/game/missions.ts`, interactive Phaser map `src/ui/PlayScene.ts`, HUD and progression in `src/main.ts`. Routes are player-built in LV-01, switch is player-operated in LV-02.
-- Added 10 domain regression tests and real Chromium pointer/touch smoke scenario. Exact-HEAD CI still required before calling G2 PASS.
-- Local campaign storage only for completed LV-01/02 and first-clear materials. No colony build mode, manipulator, art production, official SDK, or user playtest yet.
-- Art Direction APPROVED; G2 greybox remains intentionally temporary and cannot be accepted as final visual quality.
+**Executable code SHA:** `59ce030c690b59520c6437049c01c0546f02c69f`. All three GitHub Actions workflows completed SUCCESS on this SHA:
+
+- [Quality 44285741527](https://github.com/m-amirov/Kraterika/actions/runs/44285741527): `npm ci`, **16/16 tests**, TypeScript/Vite build, manifest parity.
+- [Browser smoke 44285741577](https://github.com/m-amirov/Kraterika/actions/runs/44285741577): actual desktop pointer-built LV-01, step/switch LV-02 and both wins; emulated mobile 390×844 touch-built LV-01 and win; persistent first-clear rewards and reload replay do not duplicate materials. No JavaScript/console errors. Actual screenshots uploaded as `g2-browser-screenshots` (artifact ID `14418653566`); no claim of independent visual-art QA.
+- [WFA / Ludory 44285741512](https://github.com/m-amirov/Kraterika/actions/runs/44285741512): WFA project install in disposable CI and Ludory Core manifest only; **not** Runtime Phaser or SDK proof.
+
+Actual game logic: `src/game/simulation.ts`; missions: `src/game/missions.ts`; real pointer/touch scene: `src/ui/PlayScene.ts`; controls, first-clear persistence: `src/main.ts`; test contract: [G2_FIRST_PLAYABLE.md](G2_FIRST_PLAYABLE.md).
+
+**Boundary:** G2 is a deliberately visible technical greybox. Approved [Art Direction](art/ART_DIRECTION.md) remains mandatory, not replaced by final flat primitives. Buildings, arm, 4 further levels, real assets, game-state save/rewind, native SDK export, human tests and physical devices: NOT_RUN.
 
 ## Integration status
 
 - WFA main pinned `6c8d80d15155cd8ccfbd245fce9450f61b5133f3`; AGENTS/bootstrap prepared; project-scoped install verified only in disposable CI runner [44277904079](https://github.com/m-amirov/Kraterika/actions/runs/44277904079). User-machine install and real Codex activation: **NOT_RUN**.
 - Ludory main pinned `933c73b195eaf3bfffd12a31ab1cbadb27989eea`; real Core schema accepted in [CI 44277904079](https://github.com/m-amirov/Kraterika/actions/runs/44277904079). Studio native provenance / Runtime Phaser POC / Connect: **NOT_RUN**.
-- Phaser/Vite scaffold and committed npm lockfile: `npm ci`, 6 contract tests, TypeScript/Vite and manifest parity verified by [CI 44277904210](https://github.com/m-amirov/Kraterika/actions/runs/44277904210) on `9b7a064`. This is not a playable game or browser acceptance. See [bootstrap evidence](VERIFICATION.md).
-- Art and audio assets: **NOT_CREATED**. No rights claim.
+- Phaser G2 real gameplay at exact code SHA `59ce030c`: 16/16 tests plus built Phaser and desktop/mobile-emulated Chromium gameplay, verified in [Quality](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) and [Browser](https://github.com/m-amirov/Kraterika/actions/runs/44285741577). See [G2 evidence](G2_FIRST_PLAYABLE.md) and [bootstrap evidence](VERIFICATION.md).
+- Art direction is **ART_DIRECTION_APPROVED**, with three concept PNGs registered by exact hash in [art manifest](art/REFERENCE_MANIFEST.json); they are stored as conversation attachments, **not** in Git and **not** importable Phaser sprites. Runtime art, art QA, source rights clearance and audio: **NOT_RUN / NOT_CREATED**.
 
-## Next precise actions (after owner G1 acceptance)
+## Next precise actions
 
-1. Read [bootstrap evidence](VERIFICATION.md), pin actual current HEAD, rerun CI on changes and verify local WFA Skills activation in Codex before coding.
-2. Implement minimal domain tick and collision reservation with deterministic replay tests. Make LV-01/02 playable using actual input and win/lose/retry.
-3. In isolated disposable environment prove Ludory Runtime Phaser adapter viability; do not mutate Ludory or claim native export coverage without evidence.
-4. Implement 6 mission traces and workshop/greenhouse gates; after real runtime screenshot QA and player sessions proceed through G3/G4/G5.
+1. **Art Production 0.1:** create production-grade independent game sprites and a real Phaser visual sample matching approved Art Direction, without altering proven G2 mechanics. Prepare the bounded Codex assignment.
+2. Independently prove Ludory Runtime Phaser adapter lifecycle on a disposable game fixture; do not change Ludory main, do not claim generic exporter available.
+3. G3: add manipulator, LV-03..06, workshop/greenhouse colony building loop, production art, responsive/browser visual QA and human player study.
+4. G4 content completeness only against an owner-approved requirements baseline; G6/G7 requires actual package/rights/portal authorization.
 
 ## Recovery instruction
 
