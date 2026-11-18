@@ -23,14 +23,14 @@
 ~~~bash
 git clone https://github.com/m-amirov/Kraterika.git
 cd Kraterika
-npm install
+npm ci
 npm run check
 npm run dev
 ~~~
 
 Откройте локальный URL из вывода Vite. `npm run check` проверяет структуру проекта и TypeScript production build, но не подтверждает игровой цикл, браузерные устройства, рекламу или платформенный ZIP.
 
-**Временное ограничение:** первый bootstrap не содержит проверенный `package-lock.json`: до его генерации/коммита `npm install` не обеспечивает строгую воспроизводимость. На следующем этапе после настоящей npm-установки зафиксировать lockfile и переключить CI на `npm ci`.
+Зависимости закреплены в `package-lock.json`, полученном из успешного GitHub Actions npm-resolution; `npm ci` проверяется отдельным CI на exact HEAD.
 
 ## WFA: локальная проектная установка Codex Skills
 
