@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "status": "G1_DESIGN_ONLY",
+  "reset": "00:00 UTC",
+  "sourceTime": "ysdk.serverTime()",
+  "startAfter": "CT-02",
+  "slotCategories": [
+    "basic",
+    "engineering",
+    "mastery"
+  ],
+  "slotsPerDay": 3,
+  "generation": "deterministic-by-server-UTC-date-and-unlocked-skills; persist actual selected IDs, day and schema",
+  "fallbacks": {
+    "basic": "DQ-FINISH",
+    "engineering": "DQ-SWITCH",
+    "mastery": "DQ-CLEAN"
+  },
+  "claimPolicy": "per UTC date+quest ID exactly once after qualifying successful contract event; persist idempotence ledger",
+  "rewards": {
+    "task": "not-spendable daily progress",
+    "dailyStamp": "one stamp after 2-of-3 completed on a UTC day",
+    "milestones": [
+      3,
+      7,
+      14,
+      30
+    ],
+    "cosmeticOnly": true,
+    "requiredForCampaign": false
+  },
+  "offlinePolicy": "no time trust -> show last snapshot but do not generate new day or redeem remote rewards; campaign continues",
+  "templates": [
+    {
+      "id": "DQ-FINISH",
+      "category": "basic",
+      "title": "Завершить 1 контракт",
+      "event": "contract.completed",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-CARGO",
+      "category": "basic",
+      "title": "Доставить 3 контейнера",
+      "event": "cargo.delivered.inSuccessfulContract",
+      "target": 3,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-REPLAY",
+      "category": "basic",
+      "title": "Улучшить личный результат или пройти контракт повторно",
+      "event": "contract.successfulReplayOrNewBest",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-SWITCH",
+      "category": "engineering",
+      "title": "Направить робота стрелкой",
+      "event": "switch.actuallyRoutedRover.inSuccessfulContract",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-CHARGE",
+      "category": "engineering",
+      "title": "Успешно зарядить ровера",
+      "event": "charger.used.inSuccessfulContract",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-ARM",
+      "category": "engineering",
+      "title": "Передать груз манипулятором",
+      "event": "arm.transfer.inSuccessfulContract",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-TWO",
+      "category": "engineering",
+      "title": "Доставить грузы двумя роботами",
+      "event": "contract.successWithAtLeastTwoRobots",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-GREEN",
+      "category": "engineering",
+      "title": "Обслужить производство оранжереи",
+      "event": "greenhouse.delivery.inSuccessfulContract",
+      "target": 1,
+      "minChapter": 2
+    },
+    {
+      "id": "DQ-CLEAN",
+      "category": "mastery",
+      "title": "Пройти контракт без блокировок",
+      "event": "contract.successWithoutDeadlock",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-SILVER",
+      "category": "mastery",
+      "title": "Получить серебро или золото на контракте",
+      "event": "contract.successWithMedalAtLeast2",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-BEST",
+      "category": "mastery",
+      "title": "Улучшить личную медаль",
+      "event": "contract.bestMedalImproved",
+      "target": 1,
+      "minChapter": 1
+    },
+    {
+      "id": "DQ-SOLAR",
+      "category": "mastery",
+      "title": "Выполнить заказ с ограниченной энергией",
+      "event": "contract.successWithEnergyConstraint",
+      "target": 1,
+      "minChapter": 3
+    }
+  ],
+  "deployment": {
+    "engine": "NOT_IMPLEMENTED",
+    "reset": "NOT_IMPLEMENTED",
+    "sdk": "NOT_INTEGRATED"
+  }
+}

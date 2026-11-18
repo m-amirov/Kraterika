@@ -34,34 +34,34 @@ test('WFA and Ludory references are immutable and do not misreport integration',
   assert.deepEqual(toolchain.runtime.platformTargets, manifest.targets);
 });
 
-test('GDD links resolve and six onboarding levels are unambiguously defined', () => {
-  const gdd = read('docs/GDD.md');
-  const targets = [...gdd.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)]
-    .map(match => match[1])
-    .filter(path => !path.startsWith('http'));
-  assert.ok(targets.length >= 5);
-  for (const target of targets) {
-    assert.ok(existsSync(resolve(ROOT,'docs',target)), 'Broken GDD link: ' + target);
-  }
-  const levels = read('docs/design/LEVELS.md');
-  for (let n = 1; n <= 6; n++) {
-    const id = 'LV-' + String(n).padStart(2,'0');
-    assert.match(levels, new RegExp('\\| ' + id + ' \\|'));
-  }
-  assert.match(levels, /мастерск/);
-  assert.match(levels, /оранжере/);
+test('GDD v0.2 links resolve and 30 mission IDs replace obsolete product design',()=>{
+ const gdd=read('docs/GDD.md');
+ const targets=[...gdd.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)]
+  .map(match=>match[1]).filter(path=>!path.startsWith('http'));
+ assert.ok(targets.length>=12);
+ for(const target of targets)assert.ok(existsSync(resolve(ROOT,'docs',target)),'Broken GDD link: '+target);
+ const campaign=json('docs/design/CAMPAIGN_CONTRACTS_V2.json');
+ assert.equal(campaign.contracts.length,30);
+ assert.equal(campaign.chapters.length,5);
+ const levels=read('docs/design/LEVELS.md');
+ assert.match(levels,/CT-01/);
+ assert.match(levels,/CT-30/);
+ assert.match(levels,/мастерск/);
+ assert.match(levels,/оранжере/);
+ assert.match(levels,/LV-01.*regression/i);
 });
 
-test('Guaranteed first-clear resources fund two mandatory buildings with slack', () => {
-  const reward = [8,9,10,10,11,12];
-  assert.equal(reward.slice(0,3).reduce((a,b)=>a+b,0),27);
-  assert.ok(reward.slice(0,3).reduce((a,b)=>a+b,0) >= 22);
-  assert.equal(reward.reduce((a,b)=>a+b,0),60);
-  assert.ok(reward.reduce((a,b)=>a+b,0) >= 22+32);
-  const economy = read('docs/design/COLONY.md');
-  assert.match(economy, /22 материал/);
-  assert.match(economy, /32 материал/);
-  assert.match(economy, /одноразов/);
+test('Legacy v0.1 economy is not silently adopted as new campaign balance',()=>{
+ const old=[8,9,10,10,11,12];
+ assert.equal(old.reduce((a,b)=>a+b,0),60); // historical only
+ const campaign=json('docs/design/CAMPAIGN_CONTRACTS_V2.json');
+ assert.ok(campaign.contracts.every(c=>c.rewardMaterials===null));
+ assert.ok(campaign.contracts.every(c=>c.medalTargets===null));
+ assert.equal(campaign.campaignRules.numericBalance,'NOT_CALIBRATED');
+ const economy=read('docs/design/COLONY.md');
+ assert.match(economy,/22\/32/);
+ assert.match(economy,/НЕ РАССЧИТАН/);
+ assert.match(read('docs/acceptance/REQUIREMENTS.md'),/истории требований/);
 });
 
 test('G2 first playable has source-bound evidence and G3–G7 remain unrun', () => {

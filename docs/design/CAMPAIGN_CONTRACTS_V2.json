@@ -1,0 +1,635 @@
+{
+  "schemaVersion": 2,
+  "gameId": "kraterika",
+  "designStatus": "G1_DRAFT_OWNER_REVIEW_PENDING",
+  "title": "Кратерика",
+  "missionCount": 30,
+  "chapters": [
+    {
+      "number": 1,
+      "code": "FO",
+      "name": "Первые огни",
+      "theme": "Восстановление малого узла",
+      "effect": "Диспетчерская, мастерская и оранжерея начинают работу"
+    },
+    {
+      "number": 2,
+      "code": "GD",
+      "name": "Зелёный купол",
+      "theme": "Пища и жилые модули",
+      "effect": "Действующая цепочка вода → пища → жилой купол"
+    },
+    {
+      "number": 3,
+      "code": "DS",
+      "name": "Тёмная сторона",
+      "theme": "Энергетика и дальние рейсы",
+      "effect": "Сеть удалённых зарядных и устойчивое энергоснабжение"
+    },
+    {
+      "number": 4,
+      "code": "DC",
+      "name": "Пылевые кратеры",
+      "theme": "Добыча, ремонты, обходы",
+      "effect": "Добывающий и ремонтный сектор"
+    },
+    {
+      "number": 5,
+      "code": "FH",
+      "name": "Дальний горизонт",
+      "theme": "Автоматизация и автономность",
+      "effect": "Связанная, самодостаточная колония"
+    }
+  ],
+  "contracts": [
+    {
+      "id": "CT-01",
+      "chapter": 1,
+      "name": "Первый сигнал",
+      "goal": "Включить диспетчерскую, провести первую доставку",
+      "mechanics": [
+        "путь",
+        "источник-приёмник"
+      ],
+      "worldEffect": "Заработал терминал",
+      "prerequisites": [],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-02",
+      "chapter": 1,
+      "name": "Два рейса",
+      "goal": "Доставить воду и детали разным получателям",
+      "mechanics": [
+        "2 робота",
+        "стрелка"
+      ],
+      "worldEffect": "Открыт пункт распределения",
+      "prerequisites": [
+        "CT-01"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-03",
+      "chapter": 1,
+      "name": "Последний заряд",
+      "goal": "Запустить дальний рейс через рабочую зарядку",
+      "mechanics": [
+        "зарядка",
+        "батарея"
+      ],
+      "worldEffect": "Работает энергоузел",
+      "prerequisites": [
+        "CT-02"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-04",
+      "chapter": 1,
+      "name": "Рука мастера",
+      "goal": "Передать детали через разрыв терминала",
+      "mechanics": [
+        "манипулятор",
+        "передача"
+      ],
+      "worldEffect": "Мастерская производит компоненты",
+      "prerequisites": [
+        "CT-03"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-05",
+      "chapter": 1,
+      "name": "Семена под куполом",
+      "goal": "Построить и снабдить оранжерею водой",
+      "mechanics": [
+        "постройка",
+        "вход здания"
+      ],
+      "worldEffect": "Оранжерея выпускает пищу",
+      "prerequisites": [
+        "CT-04"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-06",
+      "chapter": 1,
+      "name": "Рассвет на станции",
+      "goal": "Обеспечить два здания в общем узле без затора",
+      "mechanics": [
+        "сеть",
+        "очередь",
+        "2 робота"
+      ],
+      "worldEffect": "Первый сектор стабильно снабжается",
+      "prerequisites": [
+        "CT-05"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-07",
+      "chapter": 2,
+      "name": "Первый урожай",
+      "goal": "Доставить готовое питание в жилой купол",
+      "mechanics": [
+        "новый груз",
+        "производственная цепь"
+      ],
+      "worldEffect": "Жилой модуль активен",
+      "prerequisites": [
+        "CT-06"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-08",
+      "chapter": 2,
+      "name": "Три адреса",
+      "goal": "Распределить три вида контейнеров по адресам",
+      "mechanics": [
+        "3 получателя",
+        "адресация"
+      ],
+      "worldEffect": "Заработал сортировочный пост",
+      "prerequisites": [
+        "CT-07"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-09",
+      "chapter": 2,
+      "name": "Склад у купола",
+      "goal": "Разместить буфер и освободить общий путь",
+      "mechanics": [
+        "буфер",
+        "очередь"
+      ],
+      "worldEffect": "Открыт склад временного хранения",
+      "prerequisites": [
+        "CT-08"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-10",
+      "chapter": 2,
+      "name": "Погрузочный час",
+      "goal": "Передавать груз между двумя линиями",
+      "mechanics": [
+        "манипулятор",
+        "буфер"
+      ],
+      "worldEffect": "Готова новая платформа",
+      "prerequisites": [
+        "CT-09"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-11",
+      "chapter": 2,
+      "name": "Хрупкая партия",
+      "goal": "Доставить биоконтейнер с ограничениями перегрузки",
+      "mechanics": [
+        "хрупкий груз",
+        "безопасный путь"
+      ],
+      "worldEffect": "Оранжерея улучшена",
+      "prerequisites": [
+        "CT-10"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-12",
+      "chapter": 2,
+      "name": "Тёплый дом",
+      "goal": "Согласовать пищу, воду и детали в одном цикле",
+      "mechanics": [
+        "3 вида груза",
+        "параллельные заявки"
+      ],
+      "worldEffect": "Жилой сектор полноценно снабжается",
+      "prerequisites": [
+        "CT-11"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-13",
+      "chapter": 3,
+      "name": "На границе света",
+      "goal": "Доставить груз по длинному маршруту с одной зарядкой",
+      "mechanics": [
+        "расход энергии",
+        "длина сети"
+      ],
+      "worldEffect": "Открыт дальний сектор",
+      "prerequisites": [
+        "CT-12"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-14",
+      "chapter": 3,
+      "name": "Две батареи",
+      "goal": "Распределить заряд между двумя роверами",
+      "mechanics": [
+        "зарядка",
+        "очередь"
+      ],
+      "worldEffect": "Активирован второй зарядный пост",
+      "prerequisites": [
+        "CT-13"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-15",
+      "chapter": 3,
+      "name": "Мощность по графику",
+      "goal": "Ограничить одновременное потребление узлов",
+      "mechanics": [
+        "мощность",
+        "расписание"
+      ],
+      "worldEffect": "Усилена солнечная станция",
+      "prerequisites": [
+        "CT-14"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-16",
+      "chapter": 3,
+      "name": "Сигнал в тени",
+      "goal": "Наладить снабжение удалённого ретранслятора",
+      "mechanics": [
+        "длинные рейсы",
+        "спутниковый узел"
+      ],
+      "worldEffect": "Связь с дальней базой",
+      "prerequisites": [
+        "CT-15"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-17",
+      "chapter": 3,
+      "name": "Первая автоматика",
+      "goal": "Настроить одно правило стрелки без постоянного участия",
+      "mechanics": [
+        "условное правило",
+        "автоматизация"
+      ],
+      "worldEffect": "Открыт контроллер узлов",
+      "prerequisites": [
+        "CT-16"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-18",
+      "chapter": 3,
+      "name": "Ночная смена",
+      "goal": "Снабдить два модуля при лимите мощности",
+      "mechanics": [
+        "заряд",
+        "правила",
+        "параллельность"
+      ],
+      "worldEffect": "Энергосектор автономен",
+      "prerequisites": [
+        "CT-17"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-19",
+      "chapter": 4,
+      "name": "Песок на рельсах",
+      "goal": "Провести рейс по обходному пути",
+      "mechanics": [
+        "помехи",
+        "обход"
+      ],
+      "worldEffect": "Доступен горный участок",
+      "prerequisites": [
+        "CT-18"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-20",
+      "chapter": 4,
+      "name": "Ремонтная бригада",
+      "goal": "Поставить компоненты к повреждённому узлу",
+      "mechanics": [
+        "ремонт",
+        "приоритет"
+      ],
+      "worldEffect": "Восстановлен транспортный шлюз",
+      "prerequisites": [
+        "CT-19"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-21",
+      "chapter": 4,
+      "name": "Тяжёлая находка",
+      "goal": "Вывезти минеральный контейнер специальным роботом",
+      "mechanics": [
+        "тяжёлый груз",
+        "специализация"
+      ],
+      "worldEffect": "Шахта выдаёт минералы",
+      "prerequisites": [
+        "CT-20"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-22",
+      "chapter": 4,
+      "name": "Разделённый кратер",
+      "goal": "Объединить линии через манипулятор и ремонт",
+      "mechanics": [
+        "межветочный перенос",
+        "ремонт"
+      ],
+      "worldEffect": "Открыт глубокий склад",
+      "prerequisites": [
+        "CT-21"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-23",
+      "chapter": 4,
+      "name": "Пылевая тревога",
+      "goal": "Изменить логистику после предсказуемой блокировки",
+      "mechanics": [
+        "событие",
+        "перенастройка"
+      ],
+      "worldEffect": "Защищён транзитный коридор",
+      "prerequisites": [
+        "CT-22"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-24",
+      "chapter": 4,
+      "name": "Сердце шахты",
+      "goal": "Поддержать добычу и мастерскую без тупиков",
+      "mechanics": [
+        "добыча",
+        "узкое место",
+        "многопоток"
+      ],
+      "worldEffect": "Сектор ремонта обеспечивает колонию",
+      "prerequisites": [
+        "CT-23"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-25",
+      "chapter": 5,
+      "name": "Контроллер горизонта",
+      "goal": "Автоматизировать несколько перекрёстков",
+      "mechanics": [
+        "условия",
+        "маршрутизатор"
+      ],
+      "worldEffect": "Центральный диспетчер обновлён",
+      "prerequisites": [
+        "CT-24"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-26",
+      "chapter": 5,
+      "name": "Четыре маршрута",
+      "goal": "Развести четыре потока в общей сети",
+      "mechanics": [
+        "приоритеты",
+        "несколько потоков"
+      ],
+      "worldEffect": "Новый магистральный узел",
+      "prerequisites": [
+        "CT-25"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-27",
+      "chapter": 5,
+      "name": "Зелёный цикл",
+      "goal": "Замкнуть производство пищи и технического снабжения",
+      "mechanics": [
+        "производство",
+        "возвратные рейсы"
+      ],
+      "worldEffect": "Жилой район стабилен",
+      "prerequisites": [
+        "CT-26"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-28",
+      "chapter": 5,
+      "name": "Последняя батарея",
+      "goal": "Сбалансировать заряд, мощность и очереди",
+      "mechanics": [
+        "энергия",
+        "очередь",
+        "буфер"
+      ],
+      "worldEffect": "Устойчивая энергоинфраструктура",
+      "prerequisites": [
+        "CT-27"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-29",
+      "chapter": 5,
+      "name": "Большая доставка",
+      "goal": "Согласовать склад, шахту, мастерскую и купол",
+      "mechanics": [
+        "параллельные цепочки",
+        "автоматизация"
+      ],
+      "worldEffect": "Связаны все районы",
+      "prerequisites": [
+        "CT-28"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    },
+    {
+      "id": "CT-30",
+      "chapter": 5,
+      "name": "Автономия",
+      "goal": "Проверить работу всех обязательных контуров без ручного вмешательства после запуска",
+      "mechanics": [
+        "полный производственный цикл",
+        "несколько роботов"
+      ],
+      "worldEffect": "Кампания завершена: самостоятельная колония",
+      "prerequisites": [
+        "CT-29"
+      ],
+      "scope": "PLANNED",
+      "solutionTrace": "NOT_RUN",
+      "artStatus": "NOT_CREATED",
+      "rewardMaterials": null,
+      "medalTargets": null
+    }
+  ],
+  "campaignRules": {
+    "progression": "strict-story-critical-chain-with-optional-daily-and-replay",
+    "connectedWorld": true,
+    "permanentWorldChangesAfterFirstClear": true,
+    "attemptSandboxResetOnRestart": true,
+    "artSource": "docs/art/ART_DIRECTION.md",
+    "numericBalance": "NOT_CALIBRATED",
+    "firstClearOnce": true,
+    "replayFree": true,
+    "dailyMissionsRequired": false,
+    "authenticationRequiredForCampaign": false
+  },
+  "implementation": {
+    "existingPrototype": "G2-R one integrated live-yard test fixture; NOT 30 runnable contracts",
+    "contractsImplemented": 0,
+    "designOnly": true
+  }
+}

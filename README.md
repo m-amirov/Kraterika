@@ -4,6 +4,8 @@
 
 **2D логистическая головоломка + развитие лунной колонии** (вариант B).
 
+**Новый дизайн GDD v0.2 (ожидает утверждения):** **5 районов / 30 контрактов CT-01…CT-30**, три ежедневных задания по UTC, 22 достижения и карьерная таблица лидеров 0–9000 по лучшим медалям. Все эти системы пока **спроектированы, но не внедрены в G2-R runtime**. [GDD v0.2](docs/GDD.md) и [Acceptance v0.2](docs/acceptance/REQUIREMENTS_V2.md).
+
 Игрок доставляет грузы роботами, проектирует маршруты и переключатели, управляет механизмами во время детерминированной симуляции, получает материалы и строит функциональные модули базы. Название и направление утверждены; детали G1 — **DRAFT**.
 
 **G2-R ENGINEERING_VERIFIED:** живая площадка `src/game/yard.ts` и `src/ui/YardScene.ts` реально пройдена мышью и тач-вводом в [Chromium CI](https://github.com/m-amirov/Kraterika/actions/runs/44304280297). [Unit/build: 32 PASS](https://github.com/m-amirov/Kraterika/actions/runs/44304280512). [Скриншоты](https://github.com/m-amirov/Kraterika/actions/runs/44304280297/artifacts/14427765921). **Игровая/визуальная приёмка владельцем ещё не пройдена.** Прототип не равен G3: нет финальных спрайтов, полной экономики, остальных районов и SDK. [Статус](docs/PROJECT_STATUS.md), [контракт](docs/G2R_LIVE_YARD.md).
@@ -17,9 +19,14 @@
 - [Game Design Document](docs/GDD.md) — единственный индекс дизайна.
 - [Игровой цикл](docs/design/CORE_LOOP.md) — fixed-step, маршруты, переключатели, манипулятор, пауза и откат.
 - [Колония](docs/design/COLONY.md) — постройки, производство, материалы и защита от софтлока.
-- [Миссии](docs/design/LEVELS.md) — LV-01..06 и будущая кампания.
+- [Кампания](docs/design/CAMPAIGN_V2.md) и [30 контрактов JSON](docs/design/CAMPAIGN_CONTRACTS_V2.json) — CT-01..CT-30, пять районов.
+- [Миссии](docs/design/LEVELS.md) — разграничение новой кампании и legacy LV-01/02.
+- [Ежедневные задания](docs/design/DAILY_QUESTS.md) и [12 шаблонов](docs/design/DAILY_QUESTS_REGISTRY.json) — UTC, уровни доступности, косметика.
+- [Достижения](docs/design/ACHIEVEMENTS.md) и [22 записи](docs/design/ACHIEVEMENTS_REGISTRY.json) — единоразовые игровые триггеры.
+- [Лидерборды](docs/design/LEADERBOARDS.md) — рейтинг мастерства, guest/authorization, ограничения честности.
+- [Сохранения и SDK](docs/architecture/PROGRESSION_SAVES_V2.md) — versioned progress/cloud и ограничения платформ.
 - [Визуальный контракт](docs/design/PRESENTATION.md) — артконцепция, доступность и мобильный UI.
-- [Acceptance matrix](docs/acceptance/REQUIREMENTS.md) — стабильные ID и фактические evidence-gates.
+- [Acceptance v0.2](docs/acceptance/REQUIREMENTS_V2.md) — новая матрица DRAFT; [историческая матрица](docs/acceptance/REQUIREMENTS.md) с инженерными G2 receipts остаётся доступна.
 - [Проверки и ограничения](docs/VERIFICATION.md) — exact CI receipts, отдельные подтверждения WFA и Ludory Core.
 - [WFA × Ludory × Phaser](docs/architecture/STACK.md) — источники истины, допустимые интеграции и ограничения.
 
@@ -67,6 +74,6 @@ node scripts/verify-ludory.mjs --ludory ../ludory
 
 ## Контроль качества и разработка
 
-GitHub Actions: [quality.yml](.github/workflows/quality.yml). Для разработки читать [GDD](docs/GDD.md), [AGENTS.md](AGENTS.md) и [PROJECT_STATUS](docs/PROJECT_STATUS.md), сначала принять обновлённый G2-R, затем переходить к настоящему Art Production и G3. Не считать наличие файла уровнем, импорт картинки готовой графикой или локальную сборку разрешением публикации.
+GitHub Actions: [quality.yml](.github/workflows/quality.yml). Для разработки читать [GDD](docs/GDD.md), [AGENTS.md](AGENTS.md) и [PROJECT_STATUS](docs/PROJECT_STATUS.md), сначала согласовать GDD v0.2, затем создавать CT-01..06 и Art Production для принятого общего мира. Ежедневные задания, достижения и leaderboard требуют отдельной реализации, SDK и реальной приёмки. Не считать наличие файла уровнем, импорт картинки готовой графикой или локальную сборку разрешением публикации.
 
 Никаких реальных SDK-реклам, IAP, внешней модерации, публикации или прав на чужую графику на этом этапе.
