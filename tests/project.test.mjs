@@ -56,18 +56,21 @@ test('Legacy v0.1 economy is not silently adopted as new campaign balance',()=>{
  const old=[8,9,10,10,11,12];
  assert.equal(old.reduce((a,b)=>a+b,0),60); // historical only
  const campaign=json('docs/design/CAMPAIGN_CONTRACTS_V2.json');
- assert.ok(campaign.contracts.every(c=>c.rewardMaterials===null));
- assert.ok(campaign.contracts.every(c=>c.medalTargets===null));
- assert.equal(campaign.campaignRules.numericBalance,'NOT_CALIBRATED');
+ assert.deepEqual(campaign.contracts.slice(0,6).map(c=>c.rewardMaterials),[8,7,9,10,12,14]);
+ assert.ok(campaign.contracts.slice(0,6).every(c=>c.medalTargets!==null));
+ assert.ok(campaign.contracts.slice(6).every(c=>c.rewardMaterials===null&&c.medalTargets===null));
+ assert.notDeepEqual(campaign.contracts.slice(0,6).map(c=>c.rewardMaterials),old);
+ assert.match(campaign.campaignRules.numericBalance,/CT-01\.\.CT-06 CALIBRATED/);
  const economy=read('docs/design/COLONY.md');
  assert.match(economy,/22\/32/);
- assert.match(economy,/НЕ РАССЧИТАН/);
+ assert.match(economy,/Баланс CT-01\.\.CT-06 рассчитан/);
  assert.match(read('docs/acceptance/REQUIREMENTS.md'),/истории требований/);
 });
 
-test('G2 first playable has source-bound evidence and G3–G7 remain unrun', () => {
+test('G3 is engineering verified while G4–G7 remain gated', () => {
   const status = read('docs/PROJECT_STATUS.md');
-  for (const gate of ['G3','G4','G5','G6']) {
+  assert.match(status,/\| G3 [^\n]+\| ENGINEERING_VERIFIED \/ ART_OR_PRODUCT_GATE_PENDING \|/);
+  for (const gate of ['G4','G5','G6']) {
     assert.match(status, new RegExp('\\| ' + gate + ' [^\\n]+\\| NOT_RUN \\|'));
   }
   assert.match(status, /\| G7 [^\n]+\| BLOCKED \|/);
@@ -144,8 +147,7 @@ test('G2-R browser HUD mounts every required static control to prevent bootstrap
 test('G2-R engineering receipts are concrete, product approval remains explicitly pending',()=>{
  const status=read('docs/PROJECT_STATUS.md');
  const g2r=read('docs/G2R_LIVE_YARD.md');
- assert.match(status,/G2-R ENGINEERING_VERIFIED/);
- assert.match(status,/PRODUCT_REVIEW_PENDING/);
+ assert.match(status,/\| G2-R [^\n]+\| ENGINEERING_VERIFIED \/ PRODUCT_REVIEW_PENDING \|/);
  assert.match(g2r,/44304280297/);
  assert.match(g2r,/44304280512/);
  assert.match(g2r,/14427765921/);

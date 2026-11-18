@@ -1,38 +1,58 @@
 # Kraterika — durable project checkpoint
 
-**Last design update:** 2026-11-18 (GDD v0.2 campaign/daily/achievements/leaderboard redesign)
-**Current production gate:** **G2-R ENGINEERING_VERIFIED / PRODUCT_REVIEW_PENDING**. New integrated yard passed all source-bound unit/build and real desktop/mobile-emulated Chromium interaction tests on exact code SHA `bec9d303ced2957625e7a833f70f2cd5d84c6810`. Gameplay/visual acceptance by owner has NOT_RUN. Old LV-01/02 remain product-rejected; G3–G7 remain open.
+**Last design update:** 2026-11-18 (`G1_DESIGN_APPROVED`; G3 implementation checkpoint)
+**Current production gate:** **G3_ENGINEERING_VERIFIED / ART_OR_PRODUCT_GATE_PENDING**. CT-01..CT-06 pass deterministic domain, economy, save, desktop mouse and mobile touch runs locally on implementation baseline `1488d482f0134c64729237070fbc7daa5e3eb3c3`. Production art, independent visual acceptance and human product playtest remain pending; G4–G7 are not promoted.
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
-**Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство; **Cozy Lunar Engineering / Art Pack 0.1** visual concept approved 2026-11-18. The owner indicated the G2-R gameplay was provisionally acceptable for planning, not human/visual QA acceptance. **GDD v0.2 campaign, daily/achievements/ranking are G1 DRAFT, not owner-approved implementation.**
+**Approved owner decisions:** название «Кратерика», вариант B, **Cozy Lunar Engineering / Art Pack 0.1**, GDD v0.2: 30 контрактов/5 районов, persistent colony, daily, 22 achievements и один career leaderboard — approved 2026-11-18. Approval is design scope, not proof that daily/achievement/SDK/art/runtime beyond CT-01..06 exists.
 
 ## Stage status
 
 | Gate | Status | Evidence / blocker |
 | --- | --- | --- |
 | G0 — Concept | DECISION_RECORDED | Название и направление подтверждены в обсуждении; официальный проектный game-brief см. GDD |
-| G1 — Design | REVISED_DRAFT / OWNER_REVIEW_PENDING | [GDD v0.2](GDD.md), [30 CT design records](design/CAMPAIGN_CONTRACTS_V2.json), [12 daily templates](design/DAILY_QUESTS_REGISTRY.json), [22 achievements](design/ACHIEVEMENTS_REGISTRY.json), [V2 acceptance](acceptance/REQUIREMENTS_V2.md); no new game-runtime proof |
+| G1 — Design | G1_DESIGN_APPROVED | Owner decision 2026-11-18; [GDD v0.2](GDD.md), 30 CT, daily, 22 achievements, one career leaderboard |
 | G2 — First playable | FIRST_PLAYABLE_VERIFIED | Engineering smoke only at LV-01/LV-02. **PRODUCT_REJECTED** by owner 2026-11-18, new [G2-R](design/GAMEPLAY_RESET_2026-11-18.md) NOT_RUN. Previous [Quality](https://github.com/m-amirov/Kraterika/actions/runs/44285741527) / [Chromium](https://github.com/m-amirov/Kraterika/actions/runs/44285741577) evidence retained |
 | G2-R — Live Yard | ENGINEERING_VERIFIED / PRODUCT_REVIEW_PENDING | [Unit/build 44304280512](https://github.com/m-amirov/Kraterika/actions/runs/44304280512), [Chromium 44304280297](https://github.com/m-amirov/Kraterika/actions/runs/44304280297); owner visual/gameplay acceptance NOT_RUN |
-| G3 — Vertical slice | NOT_RUN | Нет 6 реально проходимых уровней/3 функциональных зданий/арт-пакета |
-| G4 — Content complete | NOT_RUN | Нет approved baseline и runtime/package proof |
-| G5 — Beta/player QA | NOT_RUN | Нет реальных человеческих плейтестов и browser evidence |
+| G3 — Vertical slice | ENGINEERING_VERIFIED / ART_OR_PRODUCT_GATE_PENDING | CT-01..06, persistent world, functional buildings, economy, medals, v3 local save and real browser mouse/touch verified; production art and human review pending |
+| G4 — Content complete | NOT_RUN | Реализованы только 6/30 контрактов; content/package proof отсутствует |
+| G5 — Beta/player QA | NOT_RUN | Есть engineering browser evidence, но нет реальных человеческих плейтестов |
 | G6 — Release candidate | NOT_RUN | Generic Phaser candidate builder/rights check не выполнены |
 | G7 — Platform acceptance | BLOCKED | Требуются внешняя приёмка и отдельное разрешение владельца; публикация не разрешена |
 
-## G1 v0.2 design checkpoint — no new runtime functionality
+## G1 v0.2 approved design and G3 runtime boundary
 
 - **Story:** 5 connected lunar districts, **30 planned contracts** CT-01..CT-30, permanent world changes, 1–3 medals after real per-contract calibration; [design](design/CAMPAIGN_V2.md), [registry](design/CAMPAIGN_CONTRACTS_V2.json). Current G2-R prototype is **not** CT-01..06.
 - **Daily:** after CT-02 exactly 3 UTC-day tasks from 12 templates with unlocked skill gating. 2/3 completion grants one cosmetic daily stamp, optional and not campaign-critical. [Specs](design/DAILY_QUESTS.md).
 - **Achievements:** 22 unique event-triggered optional milestones; no duplicate awards or pay-to-win effects. [Specs](design/ACHIEVEMENTS.md).
 - **Leaderboard:** one casual all-time Yandex `kraterika_mastery_v1`, score `100 * Σ(bestMedal)` in 0..9000; requires actual SDK/portal setup and voluntary authorization to publish, anti-cheat not proven without backend. [Specs](design/LEADERBOARDS.md).
 - **Saves and platform:** proposed versioned campaign/attempt/daily/achievement saves, UTC serverTime, Yandex player data/cloud; [architecture](architecture/PROGRESSION_SAVES_V2.md). SDK integration, console setup, leaderboard and daily runtime **NOT_RUN**.
-- **Balance:** v0.2 contract reward amounts and medal thresholds remain `null / NOT_CALIBRATED`; outdated 22/32 material prices and live-yard 20/9 values are *not* approved campaign numbers. Scope [V2 acceptance](acceptance/REQUIREMENTS_V2.md) is a DRAFT, not owner-approved content baseline.
-- **Scope:** only GDD/design documentation and source-level schema tests updated. Phaser G2-R and art remain as before; G3–G7 remain open.
+- **Balance:** CT-01..06 calibrated below; CT-07..30 remain `null / NOT_CALIBRATED`. Outdated 22/32 and G2-R 20/9 values are not campaign balance.
+- **Scope:** G3 implements only the first district. Daily, achievement award runtime, cloud/platform leaderboard, production art, human acceptance and CT-07..30 remain open.
+
+### First chapter economy and gold references
+
+| Contract | Permanent cost | First-clear reward | Attempt budget | Balance after clear | Gold reference: ticks / spent / energy |
+| --- | ---: | ---: | ---: | ---: | --- |
+| CT-01 | 4 | 8 | 3 | 16 | 3 / 1 / 3 |
+| CT-02 | 0 | 7 | 4 | 23 | 3 / 1 / 4 |
+| CT-03 | 6 | 9 | 6 | 26 | 6 / 4 / 5 |
+| CT-04 | 12 | 10 | 7 | 24 | 4 / 5 / 4 |
+| CT-05 | 14 | 12 | 9 | 22 | 3 / 7 / 3 |
+| CT-06 | 8 | 14 | 5 | 28 | 6 / 1 / 10 |
+
+All six references replay through `dispatchAttempt`; every result is gold, collision-free and independent of wall clock/FPS. Prefix solvency starts at 12 materials and requires no replay farm, daily, achievement, ad or purchase.
+
+## G3 implementation and local verification
+
+- Pure domain: `src/game/campaign.ts`, data-driven scenarios/traces: `src/game/campaignContracts.ts`, versioned fail-closed save: `src/game/campaignSave.ts`.
+- Product entrypoint: `index.html` + `src/campaignMain.ts` + Phaser `src/ui/ColonyScene.ts`; G2-R moved to built `g2r.html` regression entry.
+- Colony consequences: dispatch/distribution/power/workshop/greenhouse/district become operational in order; workshop produces 2 components, greenhouse 2 food; CT-06 refuses to start unless both are operational.
+- Local browser receipt: six gold contracts on desktop mouse and mobile 390×844 touch, reload, CT-06 replay without duplicate reward, 0 console/page errors. Screenshots are generated under `test-results/` and uploaded by `.github/workflows/browser-smoke.yml`; remote CI link pending final push.
 
 ## Current G2-R implementation — new main scene
 
-- Implemented separate deterministic live-yard domain `src/game/yard.ts`, browser state validation/storage in `src/game/yardSave.ts`, Phaser 2.5D greybox scene `src/ui/YardScene.ts`, UI controller `src/yardMain.ts` and interactive main `index.html`.
+- Implemented separate deterministic live-yard domain `src/game/yard.ts`, browser state validation/storage in `src/game/yardSave.ts`, Phaser 2.5D greybox scene `src/ui/YardScene.ts`, UI controller `src/yardMain.ts` and regression entry `g2r.html`.
 - On one shared lunar station map: two rovers and independent cargo orders, functioning route construction, switch, charging pad, manipulator with manual cargo hand-off, functional workshop and player-built greenhouse. Water turns greenhouse on and exposes next food contract, parts switch workshop on; not just fake counter animations.
 - Sandbox build budget: 20; route 1, charger 3, arm 4, dome 6. Staged first-clear reward flag 9 separately. These costs are G2-R test values, not the finalized G3 economy.
 - Added domain tests including regression for charging resume, exact game state after win, lack of progress when equipment/building missing, invalid actions and undo cost; added Chromium gameplay smoke via real pointer/touch in `scripts/yard-browser-smoke.mjs`.
@@ -68,11 +88,11 @@ Actual game logic: `src/game/simulation.ts`; missions: `src/game/missions.ts`; r
 
 ## Next precise actions
 
-1. **Approve or revise GDD v0.2**: 30 campaign contracts, cosmetic daily tasks, 22 achievements and one all-time mastery leaderboard; settle G1 scope and stage scheduling.
-2. **Implement CT-01..06 in G2-R world** with permanent/attempt state split, solver-backed medal thresholds, first-clear economy/progression proof and regression/browser tests. Never claim CT complete from design-only JSON.
-3. **Art Production 0.1** for the corrected live-world layout from real image sources, independent visual/pixel/rights review, then real mobile UX.
-4. **Separate social SDK gates:** trusted serverTime, guest/cloud data, daily idempotence, achievement events, leaderboard console + voluntary auth and rate-limited submissions. No anti-cheat promises without a real verifier.
-5. G4–G7 only after source-bound game-content-qa, real players, SDK proof, bundled rights verification and owner authorization; no publication action is approved.
+1. **Owner/human playtest G3**: проверить понятность целей, три класса решений и ощущение единой растущей колонии; инженерный smoke это не заменяет.
+2. **Art Production 0.1** для G3 live-world layout из оригинальных source-tracked assets, independent visual/pixel/rights review.
+3. **Plan CT-07..12** только после продуктовой обратной связи; не копировать шесть операций механически.
+4. **Separate social SDK gates:** trusted serverTime, guest/cloud, daily idempotence, achievement events, leaderboard console + voluntary auth.
+5. G4–G7 only after content QA, real players, SDK proof, rights verification and owner authorization; publication is not approved.
 
 ## Recovery instruction
 

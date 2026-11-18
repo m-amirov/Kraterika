@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "gameId": "kraterika",
-  "designStatus": "G1_DRAFT",
+  "designStatus": "G1_DESIGN_APPROVED_RUNTIME_NOT_IMPLEMENTED",
   "achievementCount": 22,
   "triggerEvaluation": "after successful campaign commit; daily stamps and global state validated by monotonic ledger",
   "guestSupported": true,

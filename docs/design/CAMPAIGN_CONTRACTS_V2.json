@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "gameId": "kraterika",
-  "designStatus": "G1_DRAFT_OWNER_REVIEW_PENDING",
+  "designStatus": "G1_DESIGN_APPROVED",
   "title": "Кратерика",
   "missionCount": 30,
   "chapters": [
@@ -53,11 +53,13 @@
       ],
       "worldEffect": "Заработал терминал",
       "prerequisites": [],
-      "scope": "PLANNED",
-      "solutionTrace": "NOT_RUN",
+      "scope": "IMPLEMENTED_G3",
+      "solutionTrace": "src/game/campaignContracts.ts#CT-01",
       "artStatus": "NOT_CREATED",
-      "rewardMaterials": null,
-      "medalTargets": null
+      "rewardMaterials": 8,
+      "permanentCost": 4,
+      "attemptBudget": 3,
+      "medalTargets": {"gold":{"maxTicks":3,"maxSpent":1,"maxEnergy":3},"silver":{"maxTicks":5,"maxSpent":2,"maxEnergy":4}}
     },
     {
       "id": "CT-02",
@@ -72,11 +74,13 @@
       "prerequisites": [
         "CT-01"
       ],
-      "scope": "PLANNED",
-      "solutionTrace": "NOT_RUN",
+      "scope": "IMPLEMENTED_G3",
+      "solutionTrace": "src/game/campaignContracts.ts#CT-02",
       "artStatus": "NOT_CREATED",
-      "rewardMaterials": null,
-      "medalTargets": null
+      "rewardMaterials": 7,
+      "permanentCost": 0,
+      "attemptBudget": 4,
+      "medalTargets": {"gold":{"maxTicks":3,"maxSpent":1,"maxEnergy":4},"silver":{"maxTicks":5,"maxSpent":2,"maxEnergy":6}}
     },
     {
       "id": "CT-03",
@@ -91,11 +95,13 @@
       "prerequisites": [
         "CT-02"
       ],
-      "scope": "PLANNED",
-      "solutionTrace": "NOT_RUN",
+      "scope": "IMPLEMENTED_G3",
+      "solutionTrace": "src/game/campaignContracts.ts#CT-03",
       "artStatus": "NOT_CREATED",
-      "rewardMaterials": null,
-      "medalTargets": null
+      "rewardMaterials": 9,
+      "permanentCost": 6,
+      "attemptBudget": 6,
+      "medalTargets": {"gold":{"maxTicks":6,"maxSpent":4,"maxEnergy":5},"silver":{"maxTicks":8,"maxSpent":5,"maxEnergy":6}}
     },
     {
       "id": "CT-04",
@@ -110,11 +116,13 @@
       "prerequisites": [
         "CT-03"
       ],
-      "scope": "PLANNED",
-      "solutionTrace": "NOT_RUN",
+      "scope": "IMPLEMENTED_G3",
+      "solutionTrace": "src/game/campaignContracts.ts#CT-04",
       "artStatus": "NOT_CREATED",
-      "rewardMaterials": null,
-      "medalTargets": null
+      "rewardMaterials": 10,
+      "permanentCost": 12,
+      "attemptBudget": 7,
+      "medalTargets": {"gold":{"maxTicks":4,"maxSpent":5,"maxEnergy":4},"silver":{"maxTicks":6,"maxSpent":6,"maxEnergy":5}}
     },
     {
       "id": "CT-05",
@@ -129,11 +137,13 @@
       "prerequisites": [
         "CT-04"
       ],
-      "scope": "PLANNED",
-      "solutionTrace": "NOT_RUN",
+      "scope": "IMPLEMENTED_G3",
+      "solutionTrace": "src/game/campaignContracts.ts#CT-05",
       "artStatus": "NOT_CREATED",
-      "rewardMaterials": null,
-      "medalTargets": null
+      "rewardMaterials": 12,
+      "permanentCost": 14,
+      "attemptBudget": 9,
+      "medalTargets": {"gold":{"maxTicks":3,"maxSpent":7,"maxEnergy":3},"silver":{"maxTicks":5,"maxSpent":8,"maxEnergy":4}}
     },
     {
       "id": "CT-06",
@@ -149,11 +159,13 @@
       "prerequisites": [
         "CT-05"
       ],
-      "scope": "PLANNED",
-      "solutionTrace": "NOT_RUN",
+      "scope": "IMPLEMENTED_G3",
+      "solutionTrace": "src/game/campaignContracts.ts#CT-06",
       "artStatus": "NOT_CREATED",
-      "rewardMaterials": null,
-      "medalTargets": null
+      "rewardMaterials": 14,
+      "permanentCost": 8,
+      "attemptBudget": 5,
+      "medalTargets": {"gold":{"maxTicks":6,"maxSpent":1,"maxEnergy":10},"silver":{"maxTicks":8,"maxSpent":2,"maxEnergy":12}}
     },
     {
       "id": "CT-07",
@@ -621,15 +633,16 @@
     "permanentWorldChangesAfterFirstClear": true,
     "attemptSandboxResetOnRestart": true,
     "artSource": "docs/art/ART_DIRECTION.md",
-    "numericBalance": "NOT_CALIBRATED",
+    "numericBalance": "CT-01..CT-06 CALIBRATED; CT-07..CT-30 NOT_CALIBRATED",
     "firstClearOnce": true,
     "replayFree": true,
     "dailyMissionsRequired": false,
     "authenticationRequiredForCampaign": false
   },
   "implementation": {
-    "existingPrototype": "G2-R one integrated live-yard test fixture; NOT 30 runnable contracts",
-    "contractsImplemented": 0,
-    "designOnly": true
+    "existingPrototype": "G2-R retained as regression fixture at g2r.html",
+    "contractsImplemented": 6,
+    "runtimeScope": "CT-01..CT-06",
+    "designOnly": false
   }
 }

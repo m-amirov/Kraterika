@@ -1,6 +1,6 @@
 # Визуальный и интерфейсный контракт v0.2
 
-**Статус:** художественное направление **Cozy Lunar Engineering APPROVED**; система экранов, ежедневные задания, достижения и лидерборд **G1 DRAFT**, production assets **NOT_CREATED**. [Art Direction](../art/ART_DIRECTION.md), [Art Pack 0.1](../art/ART_PACK_0.1.md) и [пользовательский игровой референс](../art/REVIEW_REFERENCE_2026-11-18.json) остаются обязательными ограничениями.
+**Статус:** художественное направление и экранная архитектура **G1_DESIGN_APPROVED**; G3 карта/операция/результат реализованы процедурной графикой. Daily, журнал, лидерборд runtime и production assets — **NOT_IMPLEMENTED / NOT_CREATED**. [Art Direction](../art/ART_DIRECTION.md), [Art Pack 0.1](../art/ART_PACK_0.1.md) и [пользовательский игровой референс](../art/REVIEW_REFERENCE_2026-11-18.json) остаются обязательными ограничениями.
 
 ## Единый мир
 

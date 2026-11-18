@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "G1_DESIGN_ONLY",
+  "status": "G1_DESIGN_APPROVED_RUNTIME_NOT_IMPLEMENTED",
   "reset": "00:00 UTC",
   "sourceTime": "ysdk.serverTime()",
   "startAfter": "CT-02",

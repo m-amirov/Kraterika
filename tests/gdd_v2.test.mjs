@@ -11,13 +11,14 @@ const lb=read('docs/design/LEADERBOARDS.md');
 const gdd=read('docs/GDD.md');
 const acc=read('docs/acceptance/REQUIREMENTS_V2.md');
 
-test('V2 GDD is an explicit owner-review DRAFT not a fictitious implemented campaign',()=>{
+test('V2 GDD records owner-approved design while limiting runtime proof to G3 chapter one',()=>{
  assert.match(gdd,/v0\.2/);
- assert.match(gdd,/G1_REVISED_DRAFT/);
+ assert.match(gdd,/G1_DESIGN_APPROVED/);
  assert.match(gdd,/CT-01(?:\.\.|…)CT-30/);
  assert.match(gdd,/NOT_IMPLEMENTED/);
- assert.equal(c.implementation.designOnly,true);
- assert.equal(c.implementation.contractsImplemented,0);
+ assert.equal(c.designStatus,'G1_DESIGN_APPROVED');
+ assert.equal(c.implementation.contractsImplemented,6);
+ assert.equal(c.implementation.runtimeScope,'CT-01..CT-06');
 });
 test('Five districts and 30 unique, gapless, ordered contract IDs',()=>{
  assert.equal(c.schemaVersion,2);
@@ -32,8 +33,9 @@ test('Five districts and 30 unique, gapless, ordered contract IDs',()=>{
   assert.deepEqual(item.prerequisites,i?[ids[i-1]]:[]);
   assert.match(item.worldEffect,/\S+/);
   assert.ok(item.mechanics.length>=1);
-  assert.equal(item.scope,'PLANNED');
-  assert.equal(item.solutionTrace,'NOT_RUN');
+  assert.equal(item.scope,i<6?'IMPLEMENTED_G3':'PLANNED');
+  if(i<6)assert.match(item.solutionTrace,/campaignContracts\.ts/);
+  else assert.equal(item.solutionTrace,'NOT_RUN');
  }
 });
 test('Each chapter includes actual structural change to the colony',()=>{
@@ -51,19 +53,26 @@ test('Training chapter covers new engineering rather than just route-and-play',(
  for(const target of ['стрелка','зарядка','манипулятор','постройка','робота'])
   assert.ok(early.includes(target),'missing '+target);
 });
-test('No fictional economics, impossible medal targets or fabricated runtime status',()=>{
- for(const x of c.contracts){
-  assert.equal(x.rewardMaterials,null);
-  assert.equal(x.medalTargets,null);
+test('G3 economics and medals are calibrated only for six implemented contracts',()=>{
+ for(const [i,x] of c.contracts.entries()){
+  if(i<6){
+   assert.ok(Number.isInteger(x.rewardMaterials)&&x.rewardMaterials>0);
+   assert.ok(Number.isInteger(x.permanentCost)&&x.permanentCost>=0);
+   assert.ok(Number.isInteger(x.attemptBudget)&&x.attemptBudget>0);
+   assert.ok(x.medalTargets.gold.maxTicks<=x.medalTargets.silver.maxTicks);
+  }else{
+   assert.equal(x.rewardMaterials,null);
+   assert.equal(x.medalTargets,null);
+  }
   assert.equal(x.artStatus,'NOT_CREATED');
  }
- assert.equal(c.campaignRules.numericBalance,'NOT_CALIBRATED');
+ assert.match(c.campaignRules.numericBalance,/CT-01\.\.CT-06 CALIBRATED/);
  assert.equal(c.campaignRules.firstClearOnce,true);
  assert.equal(c.campaignRules.dailyMissionsRequired,false);
  assert.equal(c.campaignRules.authenticationRequiredForCampaign,false);
 });
 test('Daily registry defines 3 slots after CT-02 with usable category fallback IDs',()=>{
- assert.equal(d.status,'G1_DESIGN_ONLY');
+ assert.equal(d.status,'G1_DESIGN_APPROVED_RUNTIME_NOT_IMPLEMENTED');
  assert.equal(d.reset,'00:00 UTC');
  assert.equal(d.sourceTime,'ysdk.serverTime()');
  assert.equal(d.startAfter,'CT-02');
@@ -93,6 +102,7 @@ test('Daily rewards are cosmetic only and deduplicated per UTC date',()=>{
  assert.match(read('docs/design/DAILY_QUESTS.md'),/23:59:59/);
 });
 test('22 unique achievements across five groups with explicit event trigger',()=>{
+ assert.equal(a.designStatus,'G1_DESIGN_APPROVED_RUNTIME_NOT_IMPLEMENTED');
  assert.equal(a.achievementCount,22);
  assert.equal(a.records.length,22);
  assert.equal(new Set(a.records.map(x=>x.id)).size,22);
@@ -141,7 +151,7 @@ test('V2 acceptance distinguishes design evidence and real runtime tests',()=>{
  for(const id of ['CAM-001','CAM-003','CAM-006','DAY-001','DAY-003',
   'ACH-101','ACH-102','LB-101','LB-104','SAVE-101','SDK-101','QA-101'])
   assert.ok(acc.includes(id),'missing acceptance '+id);
- assert.match(acc,/OWNER_APPROVAL_NOT_RUN/);
+ assert.match(acc,/G1_DESIGN_APPROVED/);
  assert.match(acc,/NOT_RUN/);
  assert.match(acc,/runtime/i);
 });

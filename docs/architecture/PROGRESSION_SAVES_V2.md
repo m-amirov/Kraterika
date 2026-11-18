@@ -1,6 +1,6 @@
 # Прогресс и платформенные адаптеры v0.2
 
-**Статус:** G1 architecture design, **не реализация**. SDK/cloud/leaderboard/game progress v3 actual integration: **NOT_RUN**. Разделы [CAMPAIGN](../design/CAMPAIGN_V2.md), [DAILY](../design/DAILY_QUESTS.md), [ACHIEVEMENTS](../design/ACHIEVEMENTS.md), [LEADERBOARDS](../design/LEADERBOARDS.md) задают контракты бизнес-состояний. Ни SDK, ни cloud merge/достижения/рейтинг в текущем G2-R не интегрированы.
+**Статус:** `G1_DESIGN_APPROVED / G3_LOCAL_SAVE_IMPLEMENTED`. Версионированный local save v3 хранит persistent world, attempt и best medals; running attempt после reload восстанавливается на паузе, corruption fail-closed, G2-R автоматически не мигрирует. SDK/cloud/daily/achievements/leaderboard integration: **NOT_RUN**.
 
 ## Источники истины и события
 
