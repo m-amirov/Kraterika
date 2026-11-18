@@ -6,6 +6,8 @@ Build **Кратерика**, an original 2D lunar logistics puzzle with functio
 
 No unrelated novel/legacy-game migration, large refactor or framework replacement.
 
+**Art direction approved (2026-11-18):** [Cozy Lunar Engineering](docs/art/ART_DIRECTION.md) / [Art Pack 0.1](docs/art/ART_PACK_0.1.md). Never silently substitute primitive flat placeholders for final art, mix incompatible cameras/styles, or treat concept screenshots as sprite sheets. Asset originals are not yet in Git; create separately structured, original, source-tracked game assets and verify them in Phaser/mobile before claiming acceptance.
+
 ## WFA integration (project-scoped, not globally enabled)
 
 Pinned WFA revision and Skills: [toolchain](integrations/toolchain.json).

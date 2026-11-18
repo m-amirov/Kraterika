@@ -87,3 +87,24 @@ test('Project requires game QA, native Ludory adaptation and real human evidence
     assert.ok(skills.includes(name), 'WFA skill missing from selected set: ' + name);
   }
 });
+
+test('Approved art direction is pinned to real concept SHA hashes without claiming game assets', () => {
+  const art = json('docs/art/REFERENCE_MANIFEST.json');
+  assert.equal(art.game, 'kraterika');
+  assert.equal(art.approval.decision, 'ART_DIRECTION_APPROVED');
+  assert.equal(art.originalsAreInGit, false);
+  assert.equal(art.references.length, 3);
+  for (const image of art.references) {
+    assert.match(image.sha256, /^[a-f0-9]{64}$/);
+    assert.ok(image.width >= 1000 && image.height >= 800);
+    assert.equal(image.repositoryPath, null);
+    assert.equal(image.approvedFor, 'style_reference_only');
+  }
+  assert.equal(art.runtimeStatus.gameArtComplete, false);
+  assert.equal(art.runtimeStatus.runtimeIntegration, 'NOT_RUN');
+  const style = read('docs/art/ART_DIRECTION.md');
+  assert.match(style, /ART_DIRECTION_APPROVED/);
+  assert.match(style, /Цветовые роли не равны правилам игры/);
+  assert.match(read('docs/PROJECT_STATUS.md'), /ART_DIRECTION_APPROVED/);
+  assert.match(read('docs/art/ART_QA.md'), /ART_ASSETS_NOT_PREPARED/);
+});
