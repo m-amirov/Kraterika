@@ -7,7 +7,10 @@ const root = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   base: './',
-  build: { outDir: 'dist', target: 'es2022' },
+  build: {
+    outDir: 'dist', target: 'es2022',
+    rollupOptions:{input:{main:join(root,'index.html'),g2r:join(root,'g2r.html')}}
+  },
   plugins: [{
     name: 'kraterika-game-manifest',
     generateBundle() {

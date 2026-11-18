@@ -132,7 +132,7 @@ test('Owner gameplay rejection is recorded and prior G2 engineering PASS is not 
 
 test('G2-R browser HUD mounts every required static control to prevent bootstrap crash',()=>{
  const source=read('src/yardMain.ts');
- const html=read('index.html');
+ const html=read('g2r.html');
  const ids=new Set([...source.matchAll(/(?:get|text|btn)\('([^']+)'/g)].map(m=>m[1]));
  assert.ok(ids.size>12);
  for(const id of ids)assert.ok(html.includes('id="'+id+'"'),'Missing element '+id);
