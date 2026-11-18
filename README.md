@@ -14,6 +14,7 @@
 - [Миссии](docs/design/LEVELS.md) — LV-01..06 и будущая кампания.
 - [Визуальный контракт](docs/design/PRESENTATION.md) — артконцепция, доступность и мобильный UI.
 - [Acceptance matrix](docs/acceptance/REQUIREMENTS.md) — стабильные ID и фактические evidence-gates.
+- [Проверки и ограничения](docs/VERIFICATION.md) — exact CI receipts, отдельные подтверждения WFA и Ludory Core.
 - [WFA × Ludory × Phaser](docs/architecture/STACK.md) — источники истины, допустимые интеграции и ограничения.
 
 ## Запуск локального каркаса

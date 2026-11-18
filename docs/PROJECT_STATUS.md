@@ -21,14 +21,14 @@
 
 ## Integration status
 
-- WFA main pinned `6c8d80d15155cd8ccfbd245fce9450f61b5133f3`; project AGENTS and install bootstrap prepared. Project-scope Skill installation/real Codex activation: **NOT_RUN**.
-- Ludory main pinned `933c73b195eaf3bfffd12a31ab1cbadb27989eea`; Core-compatible `ludory.project.json` prepared. Studio native provenance / Runtime Phaser POC / Connect: **NOT_RUN**.
-- Phaser/Vite development scaffold prepared, not a playable game. Local dependency install and browser acceptance must be reported by real CI or developer run; do not infer PASS from files.
+- WFA main pinned `6c8d80d15155cd8ccfbd245fce9450f61b5133f3`; AGENTS/bootstrap prepared; project-scoped install verified only in disposable CI runner [44277904079](https://github.com/m-amirov/Kraterika/actions/runs/44277904079). User-machine install and real Codex activation: **NOT_RUN**.
+- Ludory main pinned `933c73b195eaf3bfffd12a31ab1cbadb27989eea`; real Core schema accepted in [CI 44277904079](https://github.com/m-amirov/Kraterika/actions/runs/44277904079). Studio native provenance / Runtime Phaser POC / Connect: **NOT_RUN**.
+- Phaser/Vite scaffold and committed npm lockfile: `npm ci`, 6 contract tests, TypeScript/Vite and manifest parity verified by [CI 44277904210](https://github.com/m-amirov/Kraterika/actions/runs/44277904210) on `9b7a064`. This is not a playable game or browser acceptance. See [bootstrap evidence](VERIFICATION.md).
 - Art and audio assets: **NOT_CREATED**. No rights claim.
 
 ## Next precise actions (after owner G1 acceptance)
 
-1. Validate source manifest through pinned Ludory Core, run project CI and capture exact HEAD. Establish reproducible lockfile on authenticated/npm-capable environment; commit it.
+1. Read [bootstrap evidence](VERIFICATION.md), pin actual current HEAD, rerun CI on changes and verify local WFA Skills activation in Codex before coding.
 2. Implement minimal domain tick and collision reservation with deterministic replay tests. Make LV-01/02 playable using actual input and win/lose/retry.
 3. In isolated disposable environment prove Ludory Runtime Phaser adapter viability; do not mutate Ludory or claim native export coverage without evidence.
 4. Implement 6 mission traces and workshop/greenhouse gates; after real runtime screenshot QA and player sessions proceed through G3/G4/G5.
