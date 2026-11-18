@@ -1,37 +1,82 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0b1627">
-  <meta name="description" content="Кратерика — логистические головоломки и развитие лунной колонии.">
-  <title>Кратерика — проект игры</title>
-  <style>
-    :root { font: 16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; color-scheme:dark; }
-    * { box-sizing: border-box; }
-    body { margin:0; min-height:100dvh; background:linear-gradient(165deg,#0b1627,#172840 65%,#122237); color:#eff7ff; }
-    main { width:min(1100px,100%); margin:0 auto; padding:clamp(12px,2.5vw,28px); }
-    .header { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:18px; }
-    .logo { font-size:clamp(23px,4vw,38px); font-weight:800; letter-spacing:.06em; margin:0; }
-    .phase { font-size:12px; letter-spacing:.08em; text-transform:uppercase; padding:7px 10px; border:1px solid #5b7286; border-radius:20px; color:#b7cddd; }
-    .frame { padding:10px; background:#233c59; border:1px solid #4d6987; border-radius:18px; box-shadow:0 18px 46px #0004; overflow:hidden; }
-    #game { height:min(67dvh,650px); min-height:320px; width:100%; background:#0d2035; border-radius:12px; overflow:hidden; }
-    .note { margin:16px 2px 0; color:#b2c9db; font-size:14px; }
-    .note strong { color:#f1d19a; }
-    @media(max-width:520px) { .header { align-items:flex-start; } .phase{font-size:10px;} #game{height:61dvh; min-height:300px;} }
-  </style>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+ <meta name="theme-color" content="#101a30">
+ <meta name="description" content="Кратерика — первая играбельная логистическая головоломка на Луне.">
+ <title>Кратерика — G2 First Playable</title>
+ <style>
+ :root{font:16px/1.48 system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark}
+ *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#2c3a5e 0%,#101a30 56%,#10192b 100%);color:#eaf4ff;min-height:100dvh}
+ main{width:min(1190px,100%);margin:auto;padding:clamp(10px,2vw,24px)}
+ .mast{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+ .logo{font-weight:850;letter-spacing:.07em;font-size:clamp(26px,4vw,40px);margin:0}.tag{font-size:11px;padding:7px 11px;border:1px solid #637993;border-radius:16px;color:#c1d6e5;text-transform:uppercase}
+ .stage{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:14px}
+ .panel,.board,.controls{background:linear-gradient(140deg,#2c3a55dd,#20334cdd);border:1px solid #59718a;border-radius:15px;box-shadow:0 13px 35px #09111f55}
+ .board{padding:8px;min-width:0}.panel{padding:16px}.controls{padding:13px;margin-top:12px}
+ #game{height:min(68dvh,625px);min-height:330px;width:100%;border-radius:10px;overflow:hidden;background:#0c1b2d;touch-action:none}
+ button{font:inherit;cursor:pointer;min-height:44px;min-width:44px;color:#eff9ff;background:#344b65;border:1px solid #6c8da1;border-radius:11px;padding:9px 13px;transition:background .14s}
+ button:hover:not(:disabled){background:#496984}button:focus-visible{outline:3px solid #7ee0e8;outline-offset:2px}button:disabled{opacity:.42;cursor:not-allowed}
+ button.primary{background:#248692;border-color:#6bd7db;color:#fff;font-weight:760}
+ button[aria-pressed="true"]{background:#396d78;border-color:#7ce5dc}
+ .row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+ .levels{display:flex;gap:8px;margin-top:12px}.levels button{flex:1;font-size:13px;padding:8px}
+ h2{font-size:clamp(17px,2.4vw,23px);margin:0 0 8px}h3{font-size:14px;color:#b6ccd9;margin:16px 0 6px}
+ p{margin:8px 0} .small{font-size:13px;color:#b8cddd}.stats{margin-top:14px;display:grid;gap:8px}
+ .stat{padding:9px;background:#152840;border:1px solid #405e7c;border-radius:10px}
+ .stat strong{font-weight:700;color:#d7f7ee}
+ .actions button{flex:1;white-space:nowrap}
+ #notice{padding:11px;border-left:3px solid #7acbd3;background:#152b3e;border-radius:8px;min-height:48px}
+ .hint{background:#203f51;border:1px solid #44687b;border-radius:10px;padding:10px;color:#d3eaf5}
+ #end-note{font-weight:700;color:#b9f4d2;min-height:23px}
+ .legend{font-size:13px;color:#aec5d3}
+ @media(max-width:790px){.stage{grid-template-columns:1fr}.panel{order:-1}.panel .stats{grid-template-columns:repeat(2,minmax(0,1fr))}#game{height:min(58dvh,570px);min-height:300px}}
+ @media(max-width:460px){.tag{font-size:10px}.panel{padding:12px}.panel .stats{grid-template-columns:1fr 1fr}#game{height:47dvh;min-height:300px}.actions button{font-size:14px;padding:8px 9px}}
+ </style>
 </head>
 <body>
-  <main>
-    <header class="header">
-      <h1 class="logo">КРАТЕРИКА</h1><span class="phase">G1 · проектирование</span>
-    </header>
-    <div class="frame"><div id="game" aria-label="Статический предпросмотр лунной колонии — игровой процесс ещё не реализован"></div></div>
-    <p id="status" class="note" role="status">
-      <strong>Технический каркас, не играбельная версия.</strong>
-      Следующий шаг: реализовать детерминированную логистическую симуляцию и две первые миссии.
-    </p>
-  </main>
-  <script type="module" src="/src/main.ts"></script>
+<main>
+ <header class="mast">
+  <h1 class="logo">КРАТЕРИКА</h1><span class="tag">G2 · играбельная техническая версия</span>
+ </header>
+ <div class="stage">
+  <div class="board">
+   <div id="game" aria-label="Игровое поле: нажмите на доступные клетки, чтобы построить путь, или на стрелку для переключения направления"></div>
+  </div>
+  <aside class="panel">
+   <div class="row"><strong id="phase">Подготовка</strong><span class="small" id="tick">Такт: 0</span></div>
+   <h2 id="mission-title">Загрузка миссии…</h2>
+   <p id="mission-description"></p>
+   <div class="levels">
+    <button type="button" id="select-lv01">01 · Маршрут</button>
+    <button type="button" id="select-lv02" disabled>02 · Развилка</button>
+   </div>
+   <div class="stats">
+    <div class="stat"><span class="small">Цель</span><div id="progress">Доставлено 0 / 1</div></div>
+    <div class="stat"><span class="small">Материалы колонии</span><div><strong id="materials">0</strong> ед.</div></div>
+    <div class="stat"><span class="small">Монтаж</span><div id="budget">Свободные секции: 2</div></div>
+    <div class="stat"><span class="small">Транспорт</span><div id="robots">R-01: 12 ⚡</div></div>
+   </div>
+   <h3>Как пройти</h3>
+   <p class="hint" id="mission-guide"></p>
+   <h3>Грузы</h3><p class="small" id="cargo-types"></p>
+  </aside>
+ </div>
+ <section class="controls">
+  <div class="row actions">
+   <button class="primary" type="button" id="play">▶ Запустить</button>
+   <button type="button" id="pause" disabled>Ⅱ Пауза</button>
+   <button type="button" id="step">↦ Шаг</button>
+   <button type="button" id="restart">↺ Повтор</button>
+   <button class="primary" type="button" id="next" disabled>Следующая →</button>
+  </div>
+  <p id="notice" role="status" aria-live="polite">Подготовка операции…</p>
+  <div id="end-note" role="status" aria-live="polite"></div>
+  <p class="legend">Голубой контур «+» — место монтажа. Нажмите ещё раз, чтобы убрать секцию. Круговая стрелка — переключатель. Пробел — пауза, Shift+S — один шаг, R — повтор.</p>
+  <p class="small">Это G2 greybox: настоящая игровая логика, но не финальная графика. Утверждённый Art Pack 0.1 будет внедрён отдельно. Реклама и платёжные SDK не подключены.</p>
+ </section>
+</main>
+<script type="module" src="/src/main.ts"></script>
 </body>
 </html>

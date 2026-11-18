@@ -1,7 +1,7 @@
 # Kraterika — durable project checkpoint
 
 **Last design update:** 2026-11-18
-**Current production gate:** G1 — design/architecture bootstrap, **DRAFT / NOT ACCEPTED**.
+**Current production gate:** G2 — first playable implemented, **IN_PROGRESS / browser QA pending**. G1 design remains partially approved (owner-approved art, other GDD figures DRAFT).
 **Repository:** https://github.com/m-amirov/Kraterika
 **Game/source SHA:** check live `origin/main`; do not trust this file as HEAD.
 **Approved owner decisions:** название «Кратерика», вариант B — логистика и функциональное строительство. Остальные числа/технические решения пока рабочие предложения G1.
@@ -12,12 +12,19 @@
 | --- | --- | --- |
 | G0 — Concept | DECISION_RECORDED | Название и направление подтверждены в обсуждении; официальный проектный game-brief см. GDD |
 | G1 — Design | DRAFT | GDD, gameplay, colony, levels, art, acceptance & architecture; owner acceptance NOT_RUN |
-| G2 — First playable | NOT_RUN | Нет доказанного замкнутого игрового цикла/сквозного прохождения |
+| G2 — First playable | IN_PROGRESS | LV-01/02 domain + interactive Phaser controls implemented; source-bound test and browser smoke pending; see [G2](G2_FIRST_PLAYABLE.md) |
 | G3 — Vertical slice | NOT_RUN | Нет 6 реально проходимых уровней/3 функциональных зданий/арт-пакета |
 | G4 — Content complete | NOT_RUN | Нет approved baseline и runtime/package proof |
 | G5 — Beta/player QA | NOT_RUN | Нет реальных человеческих плейтестов и browser evidence |
 | G6 — Release candidate | NOT_RUN | Generic Phaser candidate builder/rights check не выполнены |
 | G7 — Platform acceptance | BLOCKED | Требуются внешняя приёмка и отдельное разрешение владельца; публикация не разрешена |
+
+## G2 implementation checkpoint (verification pending)
+
+- Added pure deterministic simulation in `src/game/simulation.ts`, mission fixtures in `src/game/missions.ts`, interactive Phaser map `src/ui/PlayScene.ts`, HUD and progression in `src/main.ts`. Routes are player-built in LV-01, switch is player-operated in LV-02.
+- Added 10 domain regression tests and real Chromium pointer/touch smoke scenario. Exact-HEAD CI still required before calling G2 PASS.
+- Local campaign storage only for completed LV-01/02 and first-clear materials. No colony build mode, manipulator, art production, official SDK, or user playtest yet.
+- Art Direction APPROVED; G2 greybox remains intentionally temporary and cannot be accepted as final visual quality.
 
 ## Integration status
 

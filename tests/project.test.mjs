@@ -64,13 +64,15 @@ test('Guaranteed first-clear resources fund two mandatory buildings with slack',
   assert.match(economy, /одноразов/);
 });
 
-test('G2 through G7 not asserted as complete by boilerplate', () => {
+test('G2 first playable is separately gated from still-unrun G3-G7', () => {
   const status = read('docs/PROJECT_STATUS.md');
-  for (const gate of ['G2','G3','G4','G5','G6']) {
+  for (const gate of ['G3','G4','G5','G6']) {
     assert.match(status, new RegExp('\\| ' + gate + ' [^\\n]+\\| NOT_RUN \\|'));
   }
   assert.match(status, /\| G7 [^\n]+\| BLOCKED \|/);
-  assert.match(read('src/main.ts'), /G1 scaffold ONLY/);
+  assert.match(status, /\| G2 — First playable \| IN_PROGRESS \|/);
+  assert.match(read('src/main.ts'), /G2 first playable/);
+  assert.match(read('scripts/browser-smoke.mjs'), /G2_BROWSER_SMOKE_VERIFIED/);
   assert.match(read('AGENTS.md'), /No independent publishing/);
 });
 

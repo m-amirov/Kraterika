@@ -10,3 +10,4 @@ coverage/
 .agents/skills/
 .ludory-checkout/
 .wfa-checkout/
+test-results/

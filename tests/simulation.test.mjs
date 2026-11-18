@@ -14,9 +14,10 @@ function win1(){
 function win2(){
  const m=MISSIONS[1];let s=cmd(initial(m),m,{type:'play'});
  s=cmd(s,m,{type:'tick'});
+ s=cmd(s,m,{type:'tick'});
  s=cmd(s,m,{type:'pause'});
  s=cmd(s,m,{type:'switch',at:{x:4,y:4},exit:'E'});
- for(let i=0;i<3;i++)s=cmd(s,m,{type:'step'});
+ for(let i=0;i<2;i++)s=cmd(s,m,{type:'step'});
  s=cmd(s,m,{type:'play'});
  for(let i=0;i<3;i++)s=cmd(s,m,{type:'tick'});
  return s;
@@ -59,8 +60,8 @@ test('switch accepts only defined exits and cannot mutate completed state',()=>{
 });
 test('replay is deterministic, restart preserves untouched level definition',()=>{
  const m=MISSIONS[1],script=[
-  {type:'play'},{type:'tick'},{type:'pause'},{type:'switch',at:{x:4,y:4},exit:'E'},
-  ...Array(3).fill({type:'step'}),{type:'play'},...Array(3).fill({type:'tick'})];
+  {type:'play'},{type:'tick'},{type:'tick'},{type:'pause'},{type:'switch',at:{x:4,y:4},exit:'E'},
+  ...Array(2).fill({type:'step'}),{type:'play'},...Array(3).fill({type:'tick'})];
  const replay=()=>script.reduce((s,c)=>cmd(s,m,c),initial(m));
  assert.deepEqual(replay(),replay());
  assert.deepEqual(cmd(replay(),m,{type:'restart'}),initial(m));
