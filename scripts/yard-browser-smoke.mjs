@@ -9,7 +9,7 @@ import {chromium} from 'playwright';
 import assert from 'node:assert/strict';
 
 mkdirSync('test-results',{recursive:true});
-const url='http://127.0.0.1:4173';
+const url='http://127.0.0.1:4173/g2r.html';
 const processServer=spawn(process.execPath,['node_modules/vite/bin/vite.js','preview',
  '--host','127.0.0.1','--port','4173','--strictPort'],{stdio:'pipe'});
 const browserErrors=[];

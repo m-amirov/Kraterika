@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   playable:
-    name: G2-R live yard Phaser browser smoke
+    name: G3 chapter and G2-R regression browser smoke
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -28,11 +28,13 @@ jobs:
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
       - name: Run observed gameplay smoke
-        run: node scripts/yard-browser-smoke.mjs
+        run: |
+          node scripts/yard-browser-smoke.mjs
+          node scripts/g3-browser-smoke.mjs
       - name: Upload actual browser screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: g2r-live-yard-screenshots
+          name: g3-and-g2r-gameplay-screenshots
           path: test-results/
           if-no-files-found: ignore
